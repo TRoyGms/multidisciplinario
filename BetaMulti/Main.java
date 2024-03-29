@@ -16,7 +16,7 @@ public class Main {
         Scanner entrada = new Scanner(System.in);
 
         Maestro Maestra = new Maestro("Berenice", "db3101");
-        Usuario Administradora = new Admin("Administradora", "0000");
+        Admin Administradora = new Admin("Administradora", "fz1607");
 
         ListaUsuarios userList = new ListaUsuarios();
         userList.addUser(Maestra);
@@ -165,8 +165,7 @@ public class Main {
         Scanner entrada = new Scanner(System.in);
         int option;
         do{
-           // System.out.println()            <<<<<<         //Imprimir array de ALUMNOS
-            System.out.println("Seleccione una opcion \n1.Crear nuevo Alumno \n2.Editar nombre de Alumno \3.Eliminar Alumno");
+            System.out.println("Seleccione una opcion \n1.Crear nuevo Alumno \n2.Editar nombre de Alumno \n3.Eliminar Alumno\n4. Atras");
             option = entrada.nextInt();
         switch(option){
                 case 1:CrearAlumno(listaAlumnos);
@@ -174,9 +173,102 @@ public class Main {
                 case 2:EditarAlumno(listaAlumnos);
                 break;
                 case 3: EliminarAlumno(listaAlumnos);
+                break;
+                case 4:VerAdminMenu();
             }       
-        }while(option < 1 || option > 3);
+        }while(option < 1 || option > 4);
+    }
 
+    public static void CrearAlumno( ListaAlumnos listaAlumnos){
+        Scanner entrada = new Scanner(System.in);       
+        if(listaAlumnos.getSize()==0){
+            Alumno alumno = new Alumno();
+            System.out.println("Ingrese Nombre(s) del alumno");
+            String nombre = entrada.nextLine();
+            System.out.println("Ingrese apellidos");
+            String apellidos = entrada.nextLine();
+            System.out.println("Ingrese numero de lista");
+            int num_lista = entrada.nextInt(); 
+            alumno.setNombre(nombre);
+            alumno.setApellidos(apellidos);
+            alumno.setnumLista(num_lista);
+            listaAlumnos.addAlumno(alumno);
+            VerMenuAlumnos(listaAlumnos);
+        }else{
+            int opcion;
+            System.out.println("Ingrese Nombre(s) del alumno");
+            String nombre = entrada.nextLine();
+            for(int i=0; i<listaAlumnos.getSize(); i++){
+                if(nombre.equals(listaAlumnos.getListaAlumnos().get(i).getNombre())){
+                    System.out.println("Ya existe un alumno con nombre(s): '"+nombre+"'', sus apellidos son: '"+listaAlumnos.getListaAlumnos().get(i).getApellidos()+"'");
+                    System.out.println("Y numero de lista "+listaAlumnos.getListaAlumnos().get(i).getnumLista());
+                    do{
+                        System.out.println("Desea crear nuevo alumno con el mismo nombre y diferentes apellidos o numero de lista? \n1.Si \n2.No");
+                        opcion=entrada.nextInt();
+                        if (opcion==1){
+                        Alumno alumno = new Alumno();
+                        System.out.println("Ingrese Apellidos de "+nombre);
+                        String apellidos = entrada.nextLine();
+                        System.out.println("Ingrese numero de lista para "+nombre+" "+apellidos);
+                        int num_lista = entrada.nextInt();
+                        alumno.setNombre(nombre);
+                        alumno.setApellidos(apellidos);
+                        alumno.setnumLista(num_lista);
+                        listaAlumnos.addAlumno(alumno);
+                    }
+                }while(opcion<1 || opcion>2);
+                }
+            }
+        }VerMenuAlumnos(listaAlumnos);
+    }
+    public static void EditarAlumno(ListaAlumnos listaAlumnos){
+        Scanner entrada = new Scanner(System.in);
+        String name;
+        if (listaAlumnos.getSize()==0) {
+            System.out.println("Aun no existen alumnos, redirigiendo a crear nuevo alumno");
+            CrearAlumno(listaAlumnos);            
+        }else{
+            System.out.println("Lista de alumnos existentes en la base de datos: \n"+listaAlumnos.getListaAlumnos());
+            System.out.println("Ingrese nombre del alumno a editar");
+            name= entrada.nextLine();
+            for(int i=0;i<listaAlumnos.getSize();i++){
+                if (name.equals(listaAlumnos.getListaAlumnos().get(i).getNombre())) {
+                    System.out.println("Ingrese nuevo(s) nombre(s) del alumno");
+                    name = entrada.nextLine();
+                    System.out.println("Ingrese nuevos apellidos para "+name);
+                    String apellidos= entrada.nextLine();
+                    System.out.println("Ingrese nuevo numero de lista para: "+name+" "+apellidos);  
+                    int num_lista= entrada.nextInt();
+                    listaAlumnos.getListaAlumnos().get(i).setNombre(name);     
+                    listaAlumnos.getListaAlumnos().get(i).setApellidos(apellidos);
+                    listaAlumnos.getListaAlumnos().get(i).setnumLista(num_lista);          
+                }
+            }VerAdminMenu();
+        }
+    }
+    public static void EliminarAlumno(ListaAlumnos listaAlumnos){
+        Scanner entrada = new Scanner(System.in);
+        String name;
+        int opcion;
+        if (listaAlumnos.getSize()==0) {
+            System.out.println("Aun no existen alumnos, redirigiendo a crear nuevo alumno");
+            CrearAlumno(listaAlumnos);            
+        }else{
+            System.out.println("Lista de alumnos existentes en la base de datos: \n"+listaAlumnos.getListaAlumnos());
+            System.out.println("Ingrese nombre del alumno a eliminar");
+            name= entrada.nextLine();
+            for(int i=0;i<listaAlumnos.getSize();i++){
+                if (name.equals(listaAlumnos.getListaAlumnos().get(i).getNombre())) {
+                    do{
+                        System.out.println("Esta segura de eliminar al alumno: "+listaAlumnos.getListaAlumnos().get(i)+"? \n1.SI \n2.NO");
+                        opcion=entrada.nextInt();
+                        if (opcion==1) {
+                            listaAlumnos.remove(i);                            
+                        }
+                    }while(opcion<1 || opcion >2);
+                }
+            }  
+        }VerAdminMenu();
     }
 
                                                                      //OPCION 4      <<<<<     ACTIVIDADES
@@ -184,9 +276,10 @@ public class Main {
         Scanner entrada = new Scanner(System.in);
         int option;
         do{
-           // System.out.println()            <<<<<<         //Imprimir array de ACTIVIDADES
-
-            System.out.println("Seleccione una opcion \n1.Crear nueva Asignatura \n2.Editar nombre de una asignatura existente \3.Eliminar una asignatura existente");
+            for(int i=0;i<listaActividades.getSize();i++){
+                System.out.println(listaActividades.getListaActividades().get(i).getNombreAct()+"\n");
+            }
+            System.out.println("Seleccione una opcion \n1.Crear nueva Asignatura \n2.Editar nombre de una asignatura existente \3.Eliminar una asignatura existente\n4. Menú principal");
             option = entrada.nextInt();
         switch(option){
                 case 1:CrearActividad(listaActividades);
@@ -194,8 +287,70 @@ public class Main {
                 case 2:EditarActividad(listaActividades);
                 break;
                 case 3: EliminarActividad(listaActividades);
+                break;
+                case 4:VerAdminMenu();
             }       
-        }while(option < 1 || option > 3);
+        }while(option < 1 || option > 4);
+    }
+    public static void CrearActividad(ListaActividades listaActividades){
+        Scanner entrada = new Scanner(System.in);
+        if (listaActividades.getSize()==0) {
+            Actividad actividad = new Actividad();
+            System.out.println("Ingrese nombre de la actividad");
+            String name = entrada.nextLine();
+            actividad.setNombreAct(name);
+            listaActividades.addActividad(actividad);      
+        }else{
+            System.out.println("Ingrese nombre de la actividad");
+            String name = entrada.nextLine();
+            for(int i=0; i<listaActividades.getSize();i++){
+                if(name.equals(listaActividades.getListaActividades().get(i).getNombreAct())){
+                    int opcion;
+                    System.out.println("Ya existe una actividad llamada: "+name);
+                    do{
+                        System.out.println("Seleccione una opcion\n1.Menu actividades \n2.Menu principal");
+                        opcion=entrada.nextInt();
+                        if(opcion==1){
+                            VerMenuActividades(listaActividades);
+                        }else{
+                            VerAdminMenu();
+                        }
+                    }while(opcion<1 || opcion > 2);
+                }else{
+                    Actividad actividad = new Actividad();
+                    actividad.setNombreAct(name);
+                    listaActividades.addActividad(actividad);
+                }
+            }
+        }VerMenuActividades(listaActividades);
+    }  
+    public static void EditarActividad(ListaActividades listaActividades){
+        Scanner entrada = new Scanner(System.in);
+        int opcion;
+        for(int i=0;i<listaActividades.getSize();i++){
+            System.out.println((i+1)+": "+listaActividades.getListaActividades().get(i).getNombreAct()+"\n");
+        }
+        do{
+            System.out.println("Seleccione el numero de la actividad a editar");
+            opcion = entrada.nextInt();
+            opcion--;
+            System.out.println("Ingrese nuevo nombre para la actividad: "+listaActividades.getListaActividades().get(opcion).getNombreAct());
+            String newname=entrada.nextLine();
+            listaActividades.getListaActividades().get(opcion).setNombreAct(newname);
+        }while(opcion<1 || opcion>listaActividades.getSize()+1);
+        VerMenuActividades(listaActividades);
+    }
+    public static void EliminarActividad(ListaActividades listaActividades){
+        Scanner entrada = new Scanner(System.in);
+        int actaeliminar;
+
+        for(int i=0;i<listaActividades.getSize();i++){
+            System.out.println((i+1)+listaActividades.getListaActividades().get(i).getNombreAct()+"\n");
+        }
+        System.out.println("Seleccione el numero de la actividad a eliminar");
+        actaeliminar = entrada.nextInt();
+        listaActividades.removeAt(actaeliminar);
+        VerMenuActividades(listaActividades);        
     }
 
 
@@ -250,109 +405,6 @@ public class Main {
     public static void EliminarAlumnodelGrupo(ListaGrupos listaGrupos, ListaAlumnos listaAlumnos){
         Scanner entrada = new Scanner(System.in);
     }
-    public static void CrearAlumno( ListaAlumnos listaAlumnos){
-        Scanner entrada = new Scanner(System.in);       
-        if(listaAlumnos.getSize()==0){
-            Alumno alumno = new Alumno();
-            System.out.println("Ingrese Nombre(s) del alumno");
-            String nombre = entrada.nextLine();
-            System.out.println("Ingrese apellidos");
-            String apellidos = entrada.nextLine();
-            System.out.println("Ingrese numero de lista");
-            int num_lista = entrada.nextInt(); 
-            alumno.setNombre(nombre);
-            alumno.setApellidos(apellidos);
-            alumno.setnumLista(num_lista);
-            listaAlumnos.addAlumno(alumno);
-        }else{
-            int opcion;
-            System.out.println("Ingrese Nombre(s) del alumno");
-            String nombre = entrada.nextLine();
-            for(int i=0; i<listaAlumnos.getSize(); i++){
-                if(nombre.equals(listaAlumnos.getListaAlumnos().get(i).getNombre())){
-                    System.out.println("Ya existe un alumno con nombre(s): '"+nombre+"'', sus apellidos son: '"+listaAlumnos.getListaAlumnos().get(i).getApellidos()+"'");
-                    System.out.println("Y numero de lista "+listaAlumnos.getListaAlumnos().get(i).getnumLista());
-                    do{
-                        System.out.println("Desea crear nuevo alumno con el mismo nombre y diferentes apellidos o numero de lista? \n1.Si \n2.No");
-                        opcion=entrada.nextInt();
-                        if (opcion==1){
-                        Alumno alumno = new Alumno();
-                        System.out.println("Ingrese Apellidos de "+nombre);
-                        String apellidos = entrada.nextLine();
-                        System.out.println("Ingrese numero de lista para "+nombre+" "+apellidos);
-                        int num_lista = entrada.nextInt();
-                        alumno.setNombre(nombre);
-                        alumno.setApellidos(apellidos);
-                        alumno.setnumLista(num_lista);
-                        listaAlumnos.addAlumno(alumno);
-                    }
-                }while(opcion<1 || opcion>2);
-                }
-            }
-        }
-    }
-    public static void EditarAlumno(ListaAlumnos listaAlumnos){
-        Scanner entrada = new Scanner(System.in);
-        String name;
-        if (listaAlumnos.getSize()==0) {
-            System.out.println("Aun no existen alumnos, redirigiendo a crear nuevo alumno");
-            CrearAlumno(listaAlumnos);            
-        }else{
-            System.out.println("Lista de alumnos existentes en la base de datos: \n"+listaAlumnos.getListaAlumnos());
-            System.out.println("Ingrese nombre del alumno a editar");
-            name= entrada.nextLine();
-            for(int i=0;i<listaAlumnos.getSize();i++){
-                if (name.equals(listaAlumnos.getListaAlumnos().get(i).getNombre())) {
-                    System.out.println("Ingrese nuevo(s) nombre(s) del alumno");
-                    name = entrada.nextLine();
-                    System.out.println("Ingrese nuevos apellidos para "+name);
-                    String apellidos= entrada.nextLine();
-                    System.out.println("Ingrese nuevo numero de lista para: "+name+" "+apellidos);  
-                    int num_lista= entrada.nextInt();
-                    listaAlumnos.getListaAlumnos().get(i).setNombre(name);     
-                    listaAlumnos.getListaAlumnos().get(i).setApellidos(apellidos);
-                    listaAlumnos.getListaAlumnos().get(i).setnumLista(num_lista);          
-                }
-            }
-        }
-    }
-    public static void EliminarAlumno(ListaAlumnos listaAlumnos){
-        Scanner entrada = new Scanner(System.in);
-        String name;
-        int opcion;
-        if (listaAlumnos.getSize()==0) {
-            System.out.println("Aun no existen alumnos, redirigiendo a crear nuevo alumno");
-            CrearAlumno(listaAlumnos);            
-        }else{
-            System.out.println("Lista de alumnos existentes en la base de datos: \n"+listaAlumnos.getListaAlumnos());
-            System.out.println("Ingrese nombre del alumno a eliminar");
-            name= entrada.nextLine();
-            for(int i=0;i<listaAlumnos.getSize();i++){
-                if (name.equals(listaAlumnos.getListaAlumnos().get(i).getNombre())) {
-                    do{
-                        System.out.println("Esta segura de eliminar al alumno: "+listaAlumnos.getListaAlumnos().get(i)+"? \n1.SI \n2.NO");
-                        opcion=entrada.nextInt();
-                        if (opcion==1) {
-                            listaAlumnos.remove(i);                            
-                        }
-                    }while(opcion<1 || opcion >2);
-                }
-            }  
-        }
-    }
-    public static void CrearActividad(ListaActividades listaActividades){
-        Scanner entrada = new Scanner(System.in);
-
-    }  
-    public static void EditarActividad(ListaActividades listaActividades){
-        Scanner entrada = new Scanner(System.in);
-
-    }
-   
-    public static void EliminarActividad(ListaActividades listaActividades){
-        Scanner entrada = new Scanner(System.in);
-
-    }
     public static boolean buscarAsignatura(String nombreMateria, ListaAsignaturas listaAsignaturas){
         boolean flag=false;
         for(int i=0; i<listaAsignaturas.getSize();i++){
@@ -384,7 +436,7 @@ public class Main {
     public static boolean buscarActividad(ListaActividades listaActividades, String nombreActividad){
         boolean flag=false;
         for(int i=0; i<listaActividades.getSize();i++){
-            if ( nombreActividad.equals(listaActividades.getListaActividades().get(0).getNombre())){
+            if ( nombreActividad.equals(listaActividades.getListaActividades().get(0).getNombreAct())){
                 flag = true;
             }
         }
