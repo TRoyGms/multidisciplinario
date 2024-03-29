@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
 public class ListaAlumnos{
-    private int size;
+    private int size=0;
 
    public ArrayList <Alumno> listaAlumnos = new ArrayList<>();
 
-    public void addAsignatura(Alumno Alumno){
+    public void addAlumno(Alumno Alumno){
         listaAlumnos.add(Alumno);
         this.size++;
     }
@@ -15,5 +15,9 @@ public class ListaAlumnos{
     }
     public int getSize(){
         return this.size;
+    }
+    public void remove(int index){
+        listaAlumnos.remove(index);
+
     }
 }

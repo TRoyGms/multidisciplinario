@@ -12,6 +12,6 @@ public class Alumno {
     public String getApellidos() {return apellidos;}
     public void setApellidos(String apellidos) {this.apellidos = apellidos;}
 
-    public int getLista() {return num_lista;}
-    public void setLista(int num_lista) { this.num_lista = num_lista;}
+    public int getnumLista() {return num_lista;}
+    public void setnumLista(int num_lista) { this.num_lista = num_lista;} 
 }   
