@@ -13,7 +13,7 @@ public class Materia {
         this.nombre = nombre;
     }
 
-    public String getNombre() {
+    public String getNombreAsignatura() {
         return this.nombre;
     }
 

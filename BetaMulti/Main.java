@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-    // Variables globales
+    // ARRAYS globales
     private static ListaAsignaturas listaMaterias = new ListaAsignaturas();
     private static ListaGrupos listaGrupos = new ListaGrupos();
     private static ListaAlumnos listaAlumnos = new ListaAlumnos();
@@ -12,8 +12,6 @@ public class Main {
     }
 
     public static void crearObjetos() {
-        Scanner entrada = new Scanner(System.in);
-
         Maestro Maestra = new Maestro("Berenice", "1");
         Admin Administradora = new Admin("Administradora", "0");
 
@@ -79,7 +77,6 @@ public class Main {
             System.out.println("Menú para Profesora Berenice");
             System.out.println("1. Opción 1");
             System.out.println("2. Opción 2");
-            System.out.println("0. Salir");
     
             option = entrada.nextInt();
     
@@ -90,13 +87,10 @@ public class Main {
                 case 2:
                     // Implementación de la opción 2
                     break;
-                case 0:
-                    System.out.println("Saliendo del menú para Profesora Berenice...");
-                    break;
                 default:
                     System.out.println("Opción inválida. Inténtelo de nuevo.");
             }
-        } while (option != 0);
+        } while (option < 1 || option > 2);
     }
     public static void VerAdminMenu(){
         Scanner entrada = new Scanner(System.in);
@@ -113,26 +107,21 @@ public class Main {
                 break;
                 case 4:VerMenuActividades(listaActividades);
                 break;
-                case 0:
-                System.out.println("Saliendo del menú para Administradora...");
-                break;
-            default:
-                System.out.println("Opción inválida. Inténtelo de nuevo.");
-        }
-    } while (option != 0);
-}
+                default:
+                    System.out.println("Opción inválida. Inténtelo de nuevo.");
+            }
+        } while (option < 0 || option > 4);
+    }
                                                                         //opcion 1         <<<< ASIGNATURA
     public static void VerMenuAsignatura(ListaAsignaturas listaMaterias, ListaGrupos listaGrupos, ListaActividades listaActividades){        // Apartado de ROY!, TERMINAR ESTO
         Scanner entrada = new Scanner(System.in);
         int option;
         do {
-            // Mostrar lista de asignaturas existentes
             System.out.println("Asignaturas existentes:");
-            for (Materia materia : listaMaterias.getListaAsignaturas()) {
-                System.out.println("- " + materia.getNombre());
+            for(int i = 0; i<listaMaterias.getSize(); i++){
+                System.out.println(listaMaterias.getListaAsignaturas().get(i).getNombreAsignatura());
             }
 
-            // Mostrar opciones del menú
             System.out.println("\nSeleccione una opción:");
             System.out.println("1. Crear nueva Asignatura");
             System.out.println("2. Editar nombre de una asignatura existente");
@@ -168,12 +157,12 @@ public class Main {
                     EliminarActividadenAsignatura(listaMaterias, listaActividades);         //Funcional "Sin revision siendo ejecutado"
                     break;
                 case 0:
-                    System.out.println("Volviendo al menú principal...");
+                    VerAdminMenu();
                     break;
                 default:
                     System.out.println("Opción inválida. Inténtelo de nuevo.");
             }
-        } while (option != 0);
+        } while (option < 0 || option > 7);
     }
                                                                         //OPCION 2      <<<<<     GRUPOS
     public static void VerMenuGrupos(ListaGrupos listaGrupos, ListaAlumnos listaAlumnos){       // Apartado de ROY!, TERMINAR ESTO
@@ -214,12 +203,12 @@ public class Main {
                     EliminarAlumnodelGrupo(listaGrupos, listaAlumnos);              //Funcional "Falta 2da revision"
                     break;
                 case 0:
-                    System.out.println("Volviendo al menú principal...");
+                    VerAdminMenu();
                     break;
                 default:
                     System.out.println("Opción inválida. Inténtelo de nuevo.");
             }
-        } while (option != 0);
+        } while (option < 0 || option > 5);
     }
 
                                                                      //OPCION 3      <<<<<     ALUMNOS
@@ -253,12 +242,12 @@ public class Main {
                     EliminarAlumno(listaAlumnos);
                     break;
                 case 0:
-                    System.out.println("Volviendo al menú principal...");
+                    VerAdminMenu();
                     break;
                 default:
                     System.out.println("Opción inválida. Inténtelo de nuevo.");
             }
-        } while (option != 0);
+        } while (option <0 || option > 3);
     }
 
     public static void CrearAlumno( ListaAlumnos listaAlumnos){
@@ -275,12 +264,12 @@ public class Main {
             alumno.setApellidos(apellidos);
             alumno.setnumLista(num_lista);
             listaAlumnos.addAlumno(alumno);
-            VerMenuAlumnos(listaAlumnos);}
-        else{
+            VerMenuAlumnos(listaAlumnos);
+        }else{
             int opcion;
             System.out.println("Ingrese Nombre(s) del alumno");
             String nombre = entrada.nextLine();
-            for(int i=0; i<listaAlumnos.getSize(); i++){                                                            //APARENTEMENTE HAY Q AGREGAR UN ELSE @Zuñiga...
+            for(int i=0; i<listaAlumnos.getSize(); i++){                                           
                 if(nombre.equals(listaAlumnos.getListaAlumnos().get(i).getNombre())){
                     System.out.println("Ya existe un alumno con nombre(s): " + nombre + "sus apellidos son: " + listaAlumnos.getListaAlumnos().get(i).getApellidos());
                     System.out.println("Y numero de lista: " + listaAlumnos.getListaAlumnos().get(i).getnumLista());
@@ -299,6 +288,17 @@ public class Main {
                         listaAlumnos.addAlumno(alumno);
                     }
                 }while(opcion<1 || opcion>2);
+                }else{
+                    Alumno alumno = new Alumno();
+                    System.out.println("Ingrese apellidos de " + nombre);
+                    String apellidos = entrada.nextLine();
+                    System.out.println("Ingrese numero de lista de " + nombre + " " + apellidos);
+                    int num_lista = entrada.nextInt();
+                    alumno.setNombre(nombre);
+                    alumno.setApellidos(apellidos);
+                    alumno.setnumLista(num_lista);
+                    listaAlumnos.addAlumno(alumno);
+                    VerMenuAlumnos(listaAlumnos);
                 }
             }
         }
@@ -470,7 +470,7 @@ public class Main {
 
         // Iterar sobre la lista de asignaturas y buscar la asignatura por su nombre
         for (Materia materia : listaAsignaturas.getListaAsignaturas()) {
-            if (materia.getNombre().equals(nombreAsignatura)) {
+            if (materia.getNombreAsignatura().equals(nombreAsignatura)) {
                 // Si se encuentra la asignatura, actualizar su nombre
                 materia.setNombre(nuevoNombre);
                 System.out.println("Nombre de la asignatura actualizado correctamente.");
@@ -484,12 +484,16 @@ public class Main {
 
     public static void EliminarAsignatura(ListaAsignaturas listaAsignaturas){
         Scanner entrada = new Scanner(System.in);
+        for(int i =0;i<listaAsignaturas.getSize();i++){
+            System.out.println(listaAsignaturas.getListaAsignaturas().get(i).getNombreAsignatura());
+
+        }
         System.out.println("Ingrese el nombre de la asignatura que desea eliminar:");
         String nombreAsignatura = entrada.nextLine();
 
         // Iterar sobre la lista de asignaturas y buscar la asignatura por su nombre
         for (int i = 0; i < listaAsignaturas.getSize(); i++) {
-            if (listaAsignaturas.getListaAsignaturas().get(i).getNombre().equals(nombreAsignatura)) {
+            if (listaAsignaturas.getListaAsignaturas().get(i).getNombreAsignatura().equals(nombreAsignatura)) {
                 // Si se encuentra la asignatura, eliminarla de la lista
                 listaAsignaturas.removeAt(i);
                 System.out.println("Asignatura eliminada correctamente.");
@@ -705,7 +709,7 @@ public class Main {
     public static boolean buscarAsignatura(String nombreMateria, ListaAsignaturas listaAsignaturas){
         boolean flag=false;
         for(int i=0; i<listaAsignaturas.getSize();i++){
-            if ( nombreMateria.equals(listaAsignaturas.getListaAsignaturas().get(0).getNombre())){
+            if ( nombreMateria.equals(listaAsignaturas.getListaAsignaturas().get(0).getNombreAsignatura())){
                 flag = true;
             }
         }

@@ -32,7 +32,7 @@ public class ListaAsignaturas {
     public Materia buscarAsignatura(String nombreAsignatura) {
         // Iterar sobre la lista de asignaturas y buscar la asignatura por su nombre
         for (Materia materia : listaAsignaturas) {
-            if (materia.getNombre().equals(nombreAsignatura)) {
+            if (materia.getNombreAsignatura().equals(nombreAsignatura)) {
                 return materia; // Devolver la asignatura si se encuentra
             }
         }
