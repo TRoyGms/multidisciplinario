@@ -1,6 +1,6 @@
-public class Usuario {
-    private String u_name;
-    private String password;
+public abstract class Usuario {
+    protected String u_name;
+    protected String password;
 
     public Usuario(String u_name, String password) {
         this.u_name = u_name;
@@ -15,9 +15,7 @@ public class Usuario {
         this.u_name = u_name;
     }
 
-    public String getPassword() {
-        return password;
-    }
+    protected abstract String getPassword();
 
     public void setPassword(String password) {
         this.password = password;

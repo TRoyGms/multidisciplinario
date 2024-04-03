@@ -29,9 +29,9 @@ public class ListaGrupos {
         }
     }
 
-    public Grupo buscarGrupo(String nombreGrupo) {
+    public Grupo buscarGrupo(String i) {
         for (Grupo grupo : listaGrupos) {
-            if (grupo.getNombre().equals(nombreGrupo)) {
+            if (grupo.getNombre().equals(i)) {
                 return grupo; // Devolver el grupo si se encuentra
             }
         }
