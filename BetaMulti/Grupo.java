@@ -9,6 +9,10 @@ public class Grupo {
         this.alumnos = new ArrayList<>(); // Inicializar la lista de alumnos
     }
 
+    public ArrayList<Alumno> getAlumnos() {
+        return alumnos;
+    }
+
     public String getNombre() {
         return nombre;
     }

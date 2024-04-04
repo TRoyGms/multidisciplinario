@@ -1,10 +1,16 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Alumno {
     private String nombre;
     private String apellidos;
     private int num_lista;
-
+    private List<Actividad> actividades = new ArrayList<Actividad>();
 
     public Alumno(){}
+
+    public List<Actividad> getActividad() {return actividades;}
+    public void setActividad(Actividad actividad) {this.actividades.add(actividad);}
 
     public String getNombre() {return nombre;}
     public void setNombre(String nombre) {this.nombre = nombre;}
