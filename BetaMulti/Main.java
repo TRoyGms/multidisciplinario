@@ -72,22 +72,14 @@ public class Main {
         }
         do {
             // Imprime el menú para la profesora
-            System.out.println("Menú para Profesora Berenice");
-            System.out.println("1. Opción 1");
-            System.out.println("2. Opción 2");
-    
+            System.out.println("Bienvenida Profesora Berenice");
+            System.out.println("Seleccione un Grupo:");
             option = entrada.nextInt();
-    
-            switch (option) {
-                case 1:
-                    // Implementación de la opción 1
-                    break;
-                case 2:
-                    // Implementación de la opción 2
-                    break;
-                default:
-                    System.out.println("Opción inválida. Inténtelo de nuevo.");
-            }
+            option--;
+            //listaGrupos.getListaGrupos().get(option).getListaActividades();
+           
+        
+            
         } while (option < 1 || option > 2);
     }
     public static void VerAdminMenu(ListaUsuarios userList){
