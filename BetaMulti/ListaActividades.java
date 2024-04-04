@@ -22,10 +22,8 @@ public class ListaActividades {
     }
 
     public void removeAt(int index) {
-        if (index >= 0 && index < listaActividades.size()) {
-            listaActividades.remove(index);
-            this.size--;
-        }
+        listaActividades.remove(index);
+        this.size--;   
     }
 
     public Actividad buscarActividad(String nombreActividad) {

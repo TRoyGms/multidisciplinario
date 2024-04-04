@@ -39,30 +39,38 @@ public class Main {
     public static void loginTeacher(ListaUsuarios userList) {
         Scanner entrada = new Scanner(System.in);
         System.out.println("Bienvenida Profesora Berenice \nIngrese su contraseña:");
-        String password = entrada.nextLine();
         int i = 0;
         while (i < 3) {
+            String password = entrada.nextLine();
             if (password.equals(userList.getUserList().get(1).getPassword())){ 
             VerTeacherMenu(userList);
-        } i++;}
-        // Si no se encontró al maestro o las credenciales son incorrectas
-        System.out.println("Usuario o contraseña incorrectos.");
+        }else{
+            System.out.println("Password incorrecto \nIntentelo de nuevo");
+            i++;
+            }
+        }
     }
 
     public static void loginAdmin(ListaUsuarios userList) {
         Scanner entrada = new Scanner(System.in);
 
         System.out.println("Bienvenida Administradora \nIngrese su contraseña:");
-        String password = entrada.nextLine();
-
+        
         int i = 0;
         while (i < 3) {
+            String password = entrada.nextLine();
             if (password.equals(userList.getUserList().get(0).getPassword())){ 
             VerAdminMenu(userList);
-        } i++;}
-        // Si no se encontró al administrador o las credenciales son incorrectas
-        System.out.println("Usuario o contraseña incorrectos.");
+            }else{
+                System.out.println("Password incorrecto \nIntentelo de nuevo");
+                i++;
+            }
+        }
     }
+
+
+
+    /////////////       AULA           ///////////
 
     public static void VerTeacherMenu(ListaUsuarios userList) {
         Scanner entrada = new Scanner(System.in);
@@ -73,14 +81,15 @@ public class Main {
         do {
             // Imprime el menú para la profesora
             System.out.println("Bienvenida Profesora Berenice");
-            System.out.println("Seleccione un Grupo:");
+            System.out.println("Seleccione con que  Grupo va a trabajar");
             option = entrada.nextInt();
-            option--;
-            //listaGrupos.getListaGrupos().get(option).getListaActividades();
+            int grupo = option;
+            grupo--;
+            //listaGrupos.getListaGrupos().get(grupo).getListaActividades();
            
-        
+       // buscarGrupo(option);
             
-        } while (option < 1 || option > 2);
+        } while (option <1 || option >listaGrupos.getSize());
     }
     public static void VerAdminMenu(ListaUsuarios userList){
         Scanner entrada = new Scanner(System.in);
@@ -303,7 +312,10 @@ public class Main {
             System.out.println("Aun no existen alumnos, redirigiendo a crear nuevo alumno");
             CrearAlumno(userList);            
         }else{
-            System.out.println("Lista de alumnos existentes en la base de datos: \n" + listaAlumnos.getListaAlumnos());
+            System.out.println("Lista de alumnos existentes en la base de datos: \n");
+            for(int i =0; i<listaAlumnos.getSize();i++){
+                System.out.println(listaAlumnos.getListaAlumnos().get(i).getNombre()+" "+listaAlumnos.getListaAlumnos().get(i).getApellidos()+" "+listaAlumnos.getListaAlumnos().get(i).getnumLista());
+            }
             System.out.println("Ingrese nombre del alumno a editar: ");
             name= entrada.nextLine();
             for(int i=0;i<listaAlumnos.getSize();i++){
@@ -318,7 +330,7 @@ public class Main {
                     listaAlumnos.getListaAlumnos().get(i).setApellidos(apellidos);
                     listaAlumnos.getListaAlumnos().get(i).setnumLista(num_lista);          
                 }
-            }VerAdminMenu(userList);
+            }VerMenuAlumnos(userList);
         }
     }
     public static void EliminarAlumno(ListaUsuarios userList){
@@ -329,32 +341,40 @@ public class Main {
             System.out.println("Aun no existen alumnos, redirigiendo a crear nuevo alumno");
             CrearAlumno(userList);            
         }else{
-            System.out.println("Lista de alumnos existentes en la base de datos: \n"+listaAlumnos.getListaAlumnos());
+            System.out.println("Lista de alumnos existentes: ");
+            for(int i =0; i<listaAlumnos.getSize();i++){
+                System.out.println(listaAlumnos.getListaAlumnos().get(i).getnumLista()+". "+listaAlumnos.getListaAlumnos().get(i).getNombre()+" "+listaAlumnos.getListaAlumnos().get(i).getApellidos());
+            }
             System.out.println("Ingrese nombre del alumno a eliminar");
             name= entrada.nextLine();
             for(int i=0;i<listaAlumnos.getSize();i++){
                 if (name.equals(listaAlumnos.getListaAlumnos().get(i).getNombre())) {
                     do{
-                        System.out.println("Esta segura de eliminar al alumno: " + listaAlumnos.getListaAlumnos().get(i) + "? \n1.SI \n2.NO");
+                        System.out.println("Esta segura de eliminar al alumno: " + listaAlumnos.getListaAlumnos().get(i).getNombre()+" "+listaAlumnos.getListaAlumnos().get(i).getApellidos() + "? \n1.SI \n2.NO");
                         opcion=entrada.nextInt();
                         if (opcion==1) {
                             listaAlumnos.remove(i);                            
+                        }else{
+                            VerMenuAlumnos(userList);
                         }
                     }while(opcion<1 || opcion >2);
                 }
             }  
-        }VerAdminMenu(userList);
+        }VerMenuAlumnos(userList);
     }
 
                                                                      //OPCION 4      <<<<<     ACTIVIDADES
     public static void VerMenuActividades(ListaUsuarios userList){
         Scanner entrada = new Scanner(System.in);
         int option;
+        if(listaActividades.getSize()!=0){
+            System.out.println("\n Actividades existentes: \n");
+        }
         do{
             for(int i=0;i<listaActividades.getSize();i++){
-                System.out.println(listaActividades.getListaActividades().get(i).getNombreAct()+"\n");
+                System.out.println(listaActividades.getListaActividades().get(i).getNombreAct());
             }
-            System.out.println("Seleccione una opcion \n1. Crear nueva Asignatura \n2. Editar nombre de una asignatura existente \n3. Eliminar una asignatura existente\n0. Menú principal");
+            System.out.println("\n Seleccione una opcion \n1. Crear nueva Actividad \n2. Editar nombre de una actividad existente \n3. Eliminar una actividad existente\n0. Menú principal");
             option = entrada.nextInt();
         switch(option){
                 case 1:CrearActividad(userList);
@@ -380,52 +400,66 @@ public class Main {
             String name = entrada.nextLine();
             for(int i=0; i<listaActividades.getSize();i++){
                 if(name.equals(listaActividades.getListaActividades().get(i).getNombreAct())){
-                    int opcion;
                     System.out.println("Ya existe una actividad llamada: " + name);
-                    do{
-                        System.out.println("Seleccione una opcion\n1. Menu actividades \n2. Menu principal");
-                        opcion=entrada.nextInt();
-                        if(opcion==1){
-                            VerMenuActividades(userList);
-                        }else{
-                            VerAdminMenu(userList);
-                        }
-                    }while(opcion<1 || opcion > 2);
+                    VerMenuActividades(userList);
                 }else{
                     Actividad actividad = new Actividad();
                     actividad.setNombreAct(name);
                     listaActividades.addActividad(actividad);
+                    System.out.println("Actividad guardada correctamente");
                 }
             }
         }VerMenuActividades(userList);
     }  
+    
     public static void EditarActividad(ListaUsuarios userList){
         Scanner entrada = new Scanner(System.in);
         int opcion;
-        for(int i=0;i<listaActividades.getSize();i++){
-            System.out.println((i+1)+": "+listaActividades.getListaActividades().get(i).getNombreAct()+"\n");
+        String newname;
+        if(listaActividades.getSize()==0){
+            System.out.println("Aun no existen actividades");
+            VerMenuActividades(userList);
+        }else{
+            for(int i=0;i<listaActividades.getSize();i++){
+                System.out.println((i+1)+": "+listaActividades.getListaActividades().get(i).getNombreAct()+"\n");
+            }
+            do{
+                System.out.println("Seleccione el numero de la actividad a editar");
+                opcion = entrada.nextInt();
+                int index =opcion-1;
+                System.out.println("Ingrese nuevo nombre para la actividad: "+listaActividades.getListaActividades().get(index).getNombreAct());
+                entrada.nextLine();
+                newname=entrada.nextLine();
+    
+                listaActividades.getListaActividades().get(index).setNombreAct(newname);
+            }while(opcion<1 || opcion>listaActividades.getSize()+1);
+            VerMenuActividades(userList);
         }
-        do{
-            System.out.println("Seleccione el numero de la actividad a editar");
-            opcion = entrada.nextInt();
-            opcion--;
-            System.out.println("Ingrese nuevo nombre para la actividad: "+listaActividades.getListaActividades().get(opcion).getNombreAct());
-            String newname=entrada.nextLine();
-            listaActividades.getListaActividades().get(opcion).setNombreAct(newname);
-        }while(opcion<1 || opcion>listaActividades.getSize()+1);
-        VerMenuActividades(userList);
     }
+
+
     public static void EliminarActividad(ListaUsuarios userList){
         Scanner entrada = new Scanner(System.in);
-        int actaeliminar;
-
+        int index;
+        if(listaActividades.getSize()==0){
+        System.out.println("Aun no existen actividades");
+        VerMenuActividades(userList);
+        }else{
         for(int i=0;i<listaActividades.getSize();i++){
-            System.out.println((i+1)+listaActividades.getListaActividades().get(i).getNombreAct()+"\n");
+            System.out.println((i+1)+". "+listaActividades.getListaActividades().get(i).getNombreAct()+"\n");
         }
-        System.out.println("Seleccione el numero de la actividad a eliminar");
-        actaeliminar = entrada.nextInt();
-        listaActividades.removeAt(actaeliminar);
-        VerMenuActividades(userList);        
+        int size=listaActividades.getSize();
+        do{
+            System.out.println("Seleccione el numero de la actividad a eliminar");
+            int opcion = entrada.nextInt();
+            index= opcion-1;
+            if(index >= 0 && index < size){
+                listaActividades.removeAt(index);
+                System.out.println("Actividad eliminada con exito");
+            }
+        }while(index <0 || index >= size);
+            VerMenuActividades(userList);
+        }
     }
 
 
@@ -711,6 +745,7 @@ public class Main {
         }
         VerMenuGrupos(userList);
     }
+
     /*public static boolean buscarAsignatura(String nombreMateria, ListaAsignaturas listaAsignaturas){
         boolean flag=false;
         for(int i=0; i<listaAsignaturas.getSize();i++){
@@ -719,16 +754,6 @@ public class Main {
             }
         }
         return flag;
-    }
-    public static boolean buscarGrupo(ListaGrupos listaGrupos, String nombreGrupo){
-        boolean flag=false;
-        for(int i=0; i<listaGrupos.getSize();i++){
-            if ( nombreGrupo.equals(listaGrupos.getListaGrupos().get(0).getNombre())){
-                flag = true;
-            }
-        }
-        return flag;
-
     }
     public static boolean buscarAlumno(ListaAlumnos listaAlumnos, String nombreAlumno){
         boolean flag=false;
@@ -747,7 +772,17 @@ public class Main {
             }
         }
         return flag;
-
+        
+        public static boolean buscarGrupo(int index){
+            boolean flag=false;
+            for(int i=0; i<listaGrupos.getSize();i++){
+                if ( listaGrupos.getListaGrupos().get(index).getNombre()){
+                    flag = true;
+                }
+            }
+            return flag;
+        
+        }
     }*/
-
+    
 }
