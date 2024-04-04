@@ -5,8 +5,11 @@ public class Materia {
     private ArrayList<Grupo> grupos;
     private ArrayList<Actividad> actividades;
 
+
     public Materia(String nombreAsignatura) {
-        this.nombre = nombreAsignatura; // Inicializar el nombre de la asignatura
+        this.nombre = nombreAsignatura;       // Inicializar el nombre de la asignatura
+        this.grupos = new ArrayList<>();      // Inicializar la lista de grupos
+        this.actividades = new ArrayList<>(); // Inicializar la lista de actividades
     }
 
     public void setNombre(String nombre) {
@@ -18,12 +21,17 @@ public class Materia {
     }
 
     public void addGrupo(Grupo grupo) {
-        if (this.grupos == null) {
-            this.grupos = new ArrayList<>(); // Inicializar la lista de grupos si es nula
+        if (grupos == null) {
+            grupos = new ArrayList<>();
         }
-        this.grupos.add(grupo);
+        // Verificar si el grupo ya está presente en la asignatura
+        if (!grupos.contains(grupo)) {
+            this.grupos.add(grupo);
+        } else {
+            System.out.println("El grupo ya está en la asignatura.");
+        }
     }
-
+    
     public Grupo buscarGrupo(String nombreGrupo) {
         for (Grupo grupo : this.grupos) {
             if (grupo.getNombre().equals(nombreGrupo)) {
@@ -38,6 +46,9 @@ public class Materia {
     }
 
     public void addActividad(Actividad actividad) {
+        if (this.actividades == null) {
+            this.actividades = new ArrayList<>(); // Inicializar la lista de actividades si es nula
+        }
         this.actividades.add(actividad);
     }
 

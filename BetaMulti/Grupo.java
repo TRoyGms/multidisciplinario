@@ -22,11 +22,17 @@ public class Grupo {
     }
 
     public void addAlumno(Alumno alumno) {
-        if (this.alumnos == null) {
-            this.alumnos = new ArrayList<>(); // Inicializar la lista de alumnos si es nula
+        if (alumnos == null) {
+            alumnos = new ArrayList<>();
         }
-        this.alumnos.add(alumno);
+        // Verificar si el alumno ya está presente en el grupo
+        if (!alumnos.contains(alumno)) {
+            this.alumnos.add(alumno);
+        } else {
+            System.out.println("El alumno ya está en el grupo.");
+        }
     }
+    
 
     public Alumno buscarAlumno(String nombreAlumno) {
         for (Alumno alumno : alumnos) {
