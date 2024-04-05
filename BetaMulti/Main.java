@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Main {
 
@@ -26,11 +27,11 @@ public class Main {
         int option;
         do {
             System.out.println("Seleccione un perfil:\n1. Profesora.\n2. Administradora.");
-            option = entrada.nextInt();
+            option = validarEnteros(entrada); //IMPORTANTE: Try & Catch FUNCIONAL!
             if (option == 1) {
                 loginTeacher(userList);
             } 
-            if (option == 2) {         //IMPORTANTE: BUENA ;]
+            if (option == 2) {
                 loginAdmin(userList);
             }
         } while (option < 1 || option > 2);
@@ -856,6 +857,29 @@ public class Main {
         for(int i=0;i<listaActividades.getSize();i++){
             System.out.println((i+1)+": "+listaActividades.getListaActividades().get(i).getNombreAct()+"\n");
         }
+    }
+
+    /* IMPORTANTE: Try&Catch IMPLEMENTADO en la seleccion de perfil en la VAR option */
+    private static int validarEnteros(Scanner scanner) { // Evitar entradas erroneas por parte del usuario
+        // Lógica para obtener un números enteros validados
+        int input;    // Variable auxiliar
+        while (true) {
+            try {
+                input = scanner.nextInt();
+                break;}
+            catch (InputMismatchException e) /* recibe el error especifico */ {
+                System.out.println("Entrada inválida. Por favor, ingrese un número entero.");
+                scanner.next(); // Limpiar el buffer del scanner y se evita el crash 
+            }
+
+          /*Este es un ejemplo por que se pueden poner mas de un catch para un try,
+             he visto de hasta 3 no se si se puedan mas, este catch de ejemplo no afecta si lo borras*/
+            catch ( Exception e) /* recibe el "error 2" */ { // "exception e" evita cualquier tipo de error
+            System.out.println("Ejemplo de un error");
+            scanner.next(); // Limpiar el buffer del scanner y se evita el crash
+            } 
+        }
+        return input; // Una vez pasa las prubas de los exceptions retorna la variable auxiliar sin cambios
     }
 }
     /*public static boolean buscarAsignatura(String nombreMateria, ListaAsignaturas listaAsignaturas){
