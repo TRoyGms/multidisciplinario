@@ -6,11 +6,20 @@ public class Alumno {
     private String apellidos;
     private int num_lista;
     private List<Actividad> actividades = new ArrayList<Actividad>();
+    private int sizeActs;
 
     public Alumno(){}
 
     public List<Actividad> getActividad() {return actividades;}
-    public void setActividad(Actividad actividad) {this.actividades.add(actividad);}
+    
+    public void setActividad(Actividad actividad) {
+        this.actividades.add(actividad);
+        this.sizeActs++;
+    }
+
+    public int getsizeAct(){
+        return this.sizeActs;
+    }
 
     public String getNombre() {return nombre;}
     public void setNombre(String nombre) {this.nombre = nombre;}

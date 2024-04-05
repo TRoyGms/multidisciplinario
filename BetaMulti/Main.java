@@ -81,10 +81,31 @@ public class Main {
                 System.out.println("Bienvenida Profesora Berenice");
                 System.out.println("Seleccione el numero del Grupo con el que va a trabajar");
                 option = entrada.nextInt();
-                grupo = option - 1;
-                listaGrupos.getListaGrupos().get(grupo).getAlumnos();
+                grupo = option - 1;         //poner un if para entrar a la funcion
+                for(int i=0; i<listaGrupos.getListaGrupos().get(grupo).getSizeG();i++){
+                    System.out.println(listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(i).getnumLista()+". "+listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(i).getNombre()+" "+listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(i).getApellidos());
+                    
+                }
+                System.out.println("Seleccione el numero de lista del alumno para recibir alguna actividad");
+                int lista = entrada.nextInt();
+                for(int j=0;j<listaGrupos.getListaGrupos().get(grupo).getSizeG();j++){
+                    if(lista==(listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(j).getnumLista())){
+                        int alumno = j;
+                        System.out.println("Seleccione la actividad a recibir");
+                        for(int k=0;k<listaGrupos.getListaGrupos().get(grupo).getActSize();k++){
+                            System.out.println((k+1)+". "+listaGrupos.getListaGrupos().get(grupo).getActividadenG().get(k).getNombreAct());
+                            int indx = entrada.nextInt();
+                            int tarea=indx-1;
+                            recibirTarea(grupo, alumno, tarea);
+                        }
+                    }
+                }
             } while (option <1 || option >listaGrupos.getSize());
         }
+    }
+
+    public static void recibirTarea(int grupo, int alumno, int tarea){
+        listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(alumno).setActividad(listaGrupos.getListaGrupos().get(grupo).getActividadenG().get(tarea));
     }
     public static void VerAdminMenu(ListaUsuarios userList){
         Scanner entrada = new Scanner(System.in);
