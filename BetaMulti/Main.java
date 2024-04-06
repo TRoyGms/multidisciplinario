@@ -512,25 +512,24 @@ public class Main {
 
     public static void EliminarAsignatura(ListaUsuarios userList){
         Scanner entrada = new Scanner(System.in);
+        int indice; 
         if (listaMaterias.getSize()==0) {
             System.out.println("Aun no existen asignaturas/niveles, redirigiendo a crear nueva asignatura/nivel");
-            CrearNuevaAsignatura(userList);            
+            CrearNuevaAsignatura(userList);          
             } else{
                 impAsig();
-                System.out.println("Ingrese el nombre de la asignatura/nivel que desea eliminar:");
-                String nombreAsignatura = entrada.nextLine();
-                                                                          // Iterar sobre la lista de asignaturas y buscar la asignatura por su nombre
-                for (int i = 0; i < listaMaterias.getSize(); i++) {
-                    if (listaMaterias.getListaAsignaturas().get(i).getNombreAsignatura().equals(nombreAsignatura)) {
-                                                                                     // Si se encuentra la asignatura, eliminarla de la lista
-                        listaMaterias.removeAt(i);
+                System.out.println("Ingrese el numero de la asignatura/nivel que desea eliminar:");
+                indice = validarEnteros(entrada);
+                indice--;
+                do {
+                    if (indice >= 0 && indice < listaMaterias.getSize()) {
+                        entrada.nextLine();
+                        // Iterar sobre la lista de asignaturas y buscar la asignatura por su nombre
+                        listaMaterias.removeAt(indice);
                         System.out.println("Asignatura/nivel eliminada correctamente.");
-                    } else {        
-                                                                                      // Si no se encuentra la asignatura, mostrar un mensaje de error
-                        System.out.println("La asignatura/nivel especificada no existe.");
-                        VerMenuAsignatura(userList);
                     }
-                } VerMenuAsignatura(userList);
+                } while (indice < 0 || indice >= listaMaterias.getSize());                                                       
+                VerMenuAsignatura(userList);
             }
     }
 
