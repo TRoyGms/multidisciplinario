@@ -42,7 +42,7 @@ public class Main {
         System.out.println("Bienvenida Profesora Berenice \nIngrese su contraseña:");
         int i = 0;
         while (i < 3) {
-            String password = entrada.nextLine();
+            String password = entrada.nextLine(); //Los String no necesesitan el try & catch
             if (password.equals(userList.getUserList().get(1).getPassword())){ 
             VerTeacherMenu(userList);
         }else{
@@ -78,30 +78,34 @@ public class Main {
             for (int i=0; i<listaGrupos.getSize(); i++){
                 System.out.println((i+1)+". " + listaGrupos.getListaGrupos().get(i).getNombre());
             }
-            do {
                 System.out.println("Bienvenida Profesora Berenice");
+            do {
                 System.out.println("Seleccione el numero del Grupo con el que va a trabajar");
-                option = entrada.nextInt();
+                option = validarEnteros(entrada);
                 grupo = option - 1;         //poner un if para entrar a la funcion
-                for(int i=0; i<listaGrupos.getListaGrupos().get(grupo).getSizeG();i++){
-                    System.out.println(listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(i).getnumLista()+". "+listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(i).getNombre()+" "+listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(i).getApellidos());
-                    
-                }
-                System.out.println("Seleccione el numero de lista del alumno para recibir alguna actividad");
-                int lista = entrada.nextInt();
-                for(int j=0;j<listaGrupos.getListaGrupos().get(grupo).getSizeG();j++){
-                    if(lista==(listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(j).getnumLista())){
-                        int alumno = j;
-                        System.out.println("Seleccione la actividad a recibir");
-                        for(int k=0;k<listaGrupos.getListaGrupos().get(grupo).getActSize();k++){
-                            System.out.println((k+1)+". "+listaGrupos.getListaGrupos().get(grupo).getActividadenG().get(k).getNombreAct());
-                            int indx = entrada.nextInt();
-                            int tarea=indx-1;
-                            recibirTarea(grupo, alumno, tarea);
+                if (grupo >= 0 && grupo < listaGrupos.getSize()){
+                    for(int i=0; i<listaGrupos.getListaGrupos().get(grupo).getSizeG();i++){
+                        System.out.println(listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(i).getnumLista()+". "+listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(i).getNombre()+" "+listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(i).getApellidos());
+                    }
+                    System.out.println("Seleccione el numero de lista del alumno para recibir alguna actividad");
+                    int lista = validarEnteros(entrada);
+                    for(int j=0;j<listaGrupos.getListaGrupos().get(grupo).getSizeG();j++){
+                        if(lista==(listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(j).getnumLista())){
+                            int alumno = j;
+                            System.out.println("Seleccione la actividad a recibir");
+                            for(int k=0;k<listaGrupos.getListaGrupos().get(grupo).getActSize();k++){
+                                System.out.println((k+1)+". "+listaGrupos.getListaGrupos().get(grupo).getActividadenG().get(k).getNombreAct());
+                                int indx = validarEnteros(entrada);
+                                int tarea = indx-1;
+                                recibirTarea(grupo, alumno, tarea);
+                            }
                         }
                     }
                 }
-            } while (option <1 || option >listaGrupos.getSize());
+                else {
+                    System.out.println("Seleccione una opcion valida");
+                }
+            } while (option < 1 || option > listaGrupos.getSize());     //
         }
     }
 
@@ -113,7 +117,7 @@ public class Main {
         int option;
         do{
             System.out.println("Seleccione una opcion, ya sea para Crear, Editar o Eliminar\n1.Asignautra \n2.Grupos\n3.Alumnos\n4.Actividades.\n0.Cambiar de Usuario");
-            option=entrada.nextInt();
+            option = validarEnteros(entrada);
             switch(option){
                 case 1: VerMenuAsignatura(userList);
                 break;
@@ -145,7 +149,7 @@ public class Main {
             System.out.println("7. Eliminar actividad de la asignatura");
             System.out.println("0. Volver al menú principal");
 
-            option = entrada.nextInt();
+            option = validarEnteros(entrada);
             switch (option) {
                 case 1:
                     CrearNuevaAsignatura(userList);       //Funcional
@@ -189,7 +193,7 @@ public class Main {
             System.out.println("5. Eliminar Alumno del grupo");
             System.out.println("0. Volver al menú principal");
 
-            option = entrada.nextInt();
+            option = validarEnteros(entrada);
 
             switch (option) {
                 case 1:
@@ -227,7 +231,7 @@ public class Main {
             System.out.println("3. Eliminar Alumno");
             System.out.println("0. Atrás");
 
-            option = entrada.nextInt();
+            option = validarEnteros(entrada);
 
             switch (option) {
                 case 1:
@@ -257,7 +261,7 @@ public class Main {
             System.out.println("Ingrese apellidos de " + nombre);
             String apellidos = entrada.nextLine();
             System.out.println("Ingrese numero de lista de " + nombre + " " + apellidos);
-            int num_lista = entrada.nextInt();
+            int num_lista = validarEnteros(entrada);
             alumno.setNombre(nombre);
             alumno.setApellidos(apellidos);
             alumno.setnumLista(num_lista);
@@ -272,14 +276,14 @@ public class Main {
                     System.out.println("Ya existe un alumno(a) con nombre(s): " + nombre + " sus apellidos son: " + listaAlumnos.getListaAlumnos().get(i).getApellidos()+" Y numero de lista: " + listaAlumnos.getListaAlumnos().get(i).getnumLista());
                     do{
                         System.out.println("Desea crear nuevo alumno(a) con el mismo nombre pero diferentes apellidos o numero de lista? \n1.Si \n2.No");
-                        opcion=entrada.nextInt();
+                        opcion = validarEnteros(entrada);
                         if (opcion==1){
                         Alumno newalumno = new Alumno();
                         System.out.println("Ingrese Apellidos de: " + nombre);
                         String apellidos = entrada.nextLine();
                         entrada.nextLine();
                         System.out.println("Ingrese numero de lista para: " + nombre + " " + apellidos);
-                        int numLista = entrada.nextInt();
+                        int numLista = validarEnteros(entrada);
                         newalumno.setNombre(nombre);
                         newalumno.setApellidos(apellidos);
                         newalumno.setnumLista(numLista);
@@ -292,7 +296,7 @@ public class Main {
                     System.out.println("Ingrese apellidos de " + nombre);
                     String apellidos = entrada.nextLine();
                     System.out.println("Ingrese numero de lista de " + nombre + " " + apellidos);
-                    int num_lista = entrada.nextInt();
+                    int num_lista = validarEnteros(entrada);
                     alumno.setNombre(nombre);
                     alumno.setApellidos(apellidos);
                     alumno.setnumLista(num_lista);
@@ -312,7 +316,7 @@ public class Main {
         }else{
             impAlumno(); //IMPORTANTE: DONE
             System.out.println("Ingrese el numero (de opcion, no de lista) del alumno a editar: ");    
-            int index = entrada.nextInt();
+            int index = validarEnteros(entrada);
             entrada.nextLine();
             index = index-1;
             
@@ -321,7 +325,7 @@ public class Main {
             System.out.println("Ingrese nuevos apellidos para: " + name);
             String apellidos= entrada.nextLine();
             System.out.println("Ingrese nuevo numero de lista para: " + name + " " + apellidos);
-            int num_lista= entrada.nextInt();
+            int num_lista= validarEnteros(entrada);
 
             listaAlumnos.getListaAlumnos().get(index).setNombre(name);     
             listaAlumnos.getListaAlumnos().get(index).setApellidos(apellidos);
@@ -340,12 +344,12 @@ public class Main {
         }else{
             impAlumno();
             System.out.println("Ingrese nombre del alumno a eliminar");
-            name= entrada.nextLine();
+            name = entrada.nextLine();
             for(int i=0;i<listaAlumnos.getSize();i++){
                 if (name.equals(listaAlumnos.getListaAlumnos().get(i).getNombre())) {
                     do{
                         System.out.println("Esta segura de eliminar al alumno: " + listaAlumnos.getListaAlumnos().get(i).getNombre()+" "+listaAlumnos.getListaAlumnos().get(i).getApellidos() + "? \n1.SI \n2.NO");
-                        opcion=entrada.nextInt();
+                        opcion = validarEnteros(entrada);
                         if (opcion==1) {
                             listaAlumnos.remove(i);                            
                         }else{
@@ -370,7 +374,7 @@ public class Main {
                 System.out.println(listaActividades.getListaActividades().get(i).getNombreAct());
             }
             System.out.println("\n Seleccione una opcion \n1. Crear nueva Actividad \n2. Editar nombre de una actividad existente \n3. Eliminar una actividad existente\n0. Menú principal");
-            option = entrada.nextInt();
+            option = validarEnteros(entrada);
         switch(option){
                 case 1:CrearActividad(userList);
                 break;
@@ -419,13 +423,12 @@ public class Main {
             impActividad();
             do{
                 System.out.println("Seleccione el numero de la actividad a editar");
-                opcion = entrada.nextInt();
-
-                int index =opcion-1;
+                opcion = validarEnteros(entrada);
+                int index = opcion-1;
                 if(index >= 0 && index < listaActividades.getSize()){
                     System.out.println("Ingrese nuevo nombre para la actividad: "+listaActividades.getListaActividades().get(index).getNombreAct());
                     entrada.nextLine();
-                    newname=entrada.nextLine();   
+                    newname = entrada.nextLine();   
                     listaActividades.getListaActividades().get(index).setNombreAct(newname);
                 }else{
                     System.out.println("el numero seleccionado no corresponde a ninguna actividad");
@@ -447,7 +450,7 @@ public class Main {
         int size=listaActividades.getSize();
         do{
             System.out.println("Seleccione el numero de la actividad a eliminar");
-            int opcion = entrada.nextInt();
+            int opcion = validarEnteros(entrada);
             index= opcion-1;
             if(index >= 0 && index < size){
                 listaActividades.removeAt(index);
@@ -476,7 +479,7 @@ public class Main {
             }
                                                                           // Preguntar al usuario si desea crear otra asignatura
             System.out.println("¿Desea crear otra asignatura/nivel? (1. Sí / 0. No)");
-            opcion = entrada.nextInt();
+            opcion = validarEnteros(entrada);
             entrada.nextLine();                                           // Limpiar el buffer del scanner
         } while (opcion == 1);
         VerMenuAsignatura(userList);
@@ -489,23 +492,21 @@ public class Main {
             System.out.println("Aun no existen asignaturas/niveles, redirigiendo a crear nueva asignatura/nivel");
             CrearNuevaAsignatura(userList);            
             } else {
-                impAsig();
-                System.out.println("\nIngrese el nombre de la asignatura/nivel que desea editar:");
-                String nombreAsignatura = entrada.nextLine();
-                System.out.println("Ingrese el nuevo nombre para la asignatura/nivel:");
-                String nuevoNombre = entrada.nextLine();
-                                                                    // Iterar sobre la lista de asignaturas y buscar la asignatura por su nombre
-        for (int i=0; i < listaMaterias.getSize(); i++) {
-            if (nombreAsignatura.equals(listaMaterias.getListaAsignaturas().get(i).getNombreAsignatura())) {
-                                                                    // Si se encuentra la asignatura, actualizar su nombre
-                listaMaterias.getListaAsignaturas().get(i).setNombre(nuevoNombre);
-                System.out.println("Nombre de la asignatura/nivel actualizado correctamente.");
-            } else {        
-                                                                    // Si no se encuentra la asignatura, mostrar un mensaje de error
-                System.out.println("La asignatura/nivel especificada no existe.");
-                VerMenuAsignatura(userList);
-            }
-        }VerMenuAsignatura(userList);
+                int indice;
+                do {
+                    impAsig();
+                    System.out.println("\nIngrese el numero de la asignatura/nivel que desea editar:");
+                    indice = validarEnteros(entrada);
+                    indice--;
+                    if (indice >= 0 && indice < listaMaterias.getSize()) {
+                        entrada.nextLine();
+                        System.out.println("Ingrese el nuevo nombre para la asignatura/nivel:");
+                        String nuevoNombre = entrada.nextLine();
+                        // Iterar sobre la lista de asignaturas y buscar la asignatura por su nombre
+                        listaMaterias.getListaAsignaturas().get(indice).setNombre(nuevoNombre);
+                    }
+                } while (indice < 0 || indice >= listaMaterias.getSize());
+            VerMenuAsignatura(userList);
         }
     }
 
@@ -544,12 +545,14 @@ public class Main {
             CrearNuevoGrupo(userList);            
             }    
 
-        //else{
+        else{
+        impAsig();
         System.out.println("Ingrese el nombre de la asignatura/nivel a la que desea agregar el grupo:");
         String nombreAsignatura = entrada.nextLine();
                                                                         // Buscar la asignatura por su nombre en la lista de asignaturas
         Materia asignatura = listaMaterias.buscarAsignatura(nombreAsignatura);
         if (asignatura != null) {
+            impGrupo();
             System.out.println("Ingrese el nombre del grupo que desea agregar a la asignatura/nivel:");
             String nombreGrupo = entrada.nextLine();
 
@@ -566,7 +569,7 @@ public class Main {
             System.out.println("La asignatura/nivel especificada no existe.");
         }
         VerMenuAsignatura(userList);
-    //}
+        }
     }
 
     public static void EliminarGrupoenAsignatura(ListaUsuarios userList) {
@@ -614,13 +617,15 @@ public class Main {
         if (listaActividades.getSize()==0) {
             System.out.println("Aun no existen Actividades, redirigiendo a crear nueva actividad");
             CrearActividad(userList);          
-            } else{
-        System.out.println("Ingrese el nombre de la asignatura/nivel a la que desea agregar la actividad:");
-        String nombreAsignatura = entrada.nextLine();
+            } else {
+                impAsig();
+                System.out.println("Ingrese el nombre de la asignatura/nivel a la que desea agregar la actividad:");
+                String nombreAsignatura = entrada.nextLine();
 
-        // Buscar la asignatura por su nombre en la lista de asignaturas
-        Materia asignatura = listaMaterias.buscarAsignatura(nombreAsignatura);
+                // Buscar la asignatura por su nombre en la lista de asignaturas
+                Materia asignatura = listaMaterias.buscarAsignatura(nombreAsignatura);
         if (asignatura != null) {
+            impActividad();
             System.out.println("Ingrese el nombre de la actividad que desea agregar a la asignatura/nivel:");
             String nombreActividad = entrada.nextLine();
 
@@ -775,12 +780,14 @@ public class Main {
             } 
 
         else{
+        impGrupo();
         System.out.println("Ingrese el nombre del grupo al que desea agregar el alumno:");
         String nombreGrupo = entrada.nextLine();
 
         // Buscar el grupo por su nombre en la lista de grupos
         Grupo grupo = listaGrupos.buscarGrupo(nombreGrupo);
         if (grupo != null) {
+            impAlumno();
             System.out.println("Ingrese el nombre del alumno que desea agregar al grupo:");
             String nombreAlumno = entrada.nextLine();
 
@@ -837,13 +844,13 @@ public class Main {
     public static void impAsig(){
         System.out.println("Asignaturas/niveles existentes: ");
         for (int i = 0; i < listaMaterias.getSize(); i++){
-            System.out.println(listaMaterias.getListaAsignaturas().get(i).getNombreAsignatura());
+            System.out.println((i+1)+". "+listaMaterias.getListaAsignaturas().get(i).getNombreAsignatura());
         }
     }
     public static void impGrupo(){
         System.out.println("Grupos Existentes:");
             for (int i = 0; i < listaGrupos.getSize() ; i++){
-                System.out.println(listaGrupos.getListaGrupos().get(i).getNombre());
+                System.out.println((i+1)+". "+listaGrupos.getListaGrupos().get(i).getNombre());
             }
     }
     public static void impAlumno(){
@@ -871,11 +878,10 @@ public class Main {
                 System.out.println("Entrada inválida. Por favor, ingrese un número entero.");
                 scanner.next(); // Limpiar el buffer del scanner y se evita el crash 
             }
-
-          /*Este es un ejemplo por que se pueden poner mas de un catch para un try,
+            /*Este es un ejemplo por que se pueden poner mas de un catch para un try,
              he visto de hasta 3 no se si se puedan mas, este catch de ejemplo no afecta si lo borras*/
             catch ( Exception e) /* recibe el "error 2" */ { // "exception e" evita cualquier tipo de error
-            System.out.println("Ejemplo de un error");
+            System.out.println("Ejemplo de un exception esto detecta cualquier tipo de exception");
             scanner.next(); // Limpiar el buffer del scanner y se evita el crash
             } 
         }
