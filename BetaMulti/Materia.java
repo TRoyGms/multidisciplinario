@@ -52,6 +52,14 @@ public class Materia {
         this.actividades.add(actividad);
     }
 
+    public ArrayList<Actividad> getListaActividades() {
+        return this.actividades;
+    }
+
+    public ArrayList<Grupo> getListaGrupos() {
+        return this.grupos;
+    }
+
     public Actividad buscarActividad(String nombreActividad) {
         for (Actividad actividad : this.actividades) {
             if (actividad.getNombreAct().equals(nombreActividad)) {

@@ -14,7 +14,7 @@ public class ListaActividades {
     }
 
     public ArrayList<Actividad> getListaActividades() {
-        return listaActividades;
+        return this.listaActividades;
     }
 
     public int getSize() {

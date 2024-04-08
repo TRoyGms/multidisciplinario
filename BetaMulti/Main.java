@@ -74,24 +74,41 @@ public class Main {
             choose_user(userList);            
             }else{
             int option;
-            int grupo;
-            for (int i=0; i<listaGrupos.getSize(); i++){
-                System.out.println((i+1)+". " + listaGrupos.getListaGrupos().get(i).getNombre());
-            }
+            int asig, grupo, alumno;
                 System.out.println("Bienvenida Profesora Berenice");
+                impAsig();
             do {
-                System.out.println("Seleccione el numero del Grupo con el que va a trabajar");
+                System.out.println("Seleccione el numero de Grado con el que va a trabajar");
                 option = validarEnteros(entrada);
-                grupo = option - 1;         //poner un if para entrar a la funcion
-                if (grupo >= 0 && grupo < listaGrupos.getSize()){
-                    for(int i=0; i<listaGrupos.getListaGrupos().get(grupo).getSizeG();i++){
-                        System.out.println(listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(i).getnumLista()+". "+listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(i).getNombre()+" "+listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(i).getApellidos());
-                    }
-                    System.out.println("Seleccione el numero de lista del alumno para recibir alguna actividad");
+                asig = option - 1;         //poner un if para entrar a la funcion
+                if (asig >= 0 && asig < listaMaterias.getSize()){
+                   for (int g=0; g < listaMaterias.getListaAsignaturas().get(asig).getListaActividades().size(); g++){
+                    System.out.println((g+1) + ". " + listaMaterias.getListaAsignaturas().get(asig).getListaGrupos().get(g).getNombre());
+                   } 
+                   System.out.println("Seleccione el numero del Grupo con el que va a trabajar");
+                   option = validarEnteros(entrada);
+                   grupo = option - 1;
+                    if (grupo >= 0 && grupo < listaMaterias.getListaAsignaturas().get(asig).getListaGrupos().get(grupo).getAlumnos().size()) {
+                        for(int al=0; al < listaMaterias.getListaAsignaturas().get(asig).getListaGrupos().get(grupo).getAlumnos().size(); al++){
+                        System.out.println("("+ (al+1) + ")" + "Numero de lista: " + listaMaterias.getListaAsignaturas().get(asig).getListaGrupos().get(grupo).getAlumnos().get(al).getnumLista()+". "+listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(al).getNombre()+" "+listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(al).getApellidos());
+                        }
+                    }   // Insertar else                   
+                    
+                    System.out.println("Seleccione el numero del alumno (El numero entre parentesis) para recibir alguna actividad");
                     int lista = validarEnteros(entrada);
+                    lista--;
+                    if (lista >= 0 && lista < listaMaterias.getListaAsignaturas().get(asig).getListaGrupos().get(grupo).getAlumnos().size()){
+                        for(int act=0; act<listaMaterias.getListaAsignaturas().get(asig).getListaGrupos().get(grupo).getActividadenG().size(); act++){
+                            System.out.println((act+1)+". "+listaMaterias.getListaAsignaturas().get(asig).getListaGrupos().get(grupo).getActividadenG().get(act).getNombreAct());
+                        }
+                        int actividad = validarEnteros(entrada);
+                        actividad--;
+                        if (actividad >= 0 && actividad < listaMaterias.getListaAsignaturas().get(asig).getListaGrupos().get(grupo).getActividadenG().size()){
+                            listaMaterias.getListaAsignaturas().get(asig).getListaGrupos().get(grupo).getAlumnos().get(lista).setActividad(listaMaterias.getListaAsignaturas().get(asig).getListaGrupos().get(grupo).getActividadenG().get(actividad));
+                        }
                     for(int j=0;j<listaGrupos.getListaGrupos().get(grupo).getSizeG();j++){
                         if(lista==(listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(j).getnumLista())){
-                            int alumno = j;
+                            alumno = j;
                             System.out.println("Seleccione la actividad a recibir");
                             for(int k=0;k<listaGrupos.getListaGrupos().get(grupo).getActSize();k++){
                                 System.out.println((k+1)+". "+listaGrupos.getListaGrupos().get(grupo).getActividadenG().get(k).getNombreAct());
@@ -104,11 +121,12 @@ public class Main {
                 }
                 else {
                     System.out.println("Seleccione una opcion valida");
+                    }
                 }
             } while (option < 1 || option > listaGrupos.getSize());     //
         }
     }
-
+            //Rehacer el metodo recibirTarea
     public static void recibirTarea(int grupo, int alumno, int tarea){
         listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(alumno).setActividad(listaGrupos.getListaGrupos().get(grupo).getActividadenG().get(tarea));
     }
@@ -534,42 +552,47 @@ public class Main {
     }
 
     public static void AgregarGrupoenAsignatura(ListaUsuarios userList) {
-        Scanner entrada = new Scanner(System.in);                                                    // Validacion de las asignaturas
+        Scanner entrada = new Scanner(System.in);
         if (listaMaterias.getSize() == 0) {
-            System.out.println("Aun no existen asignaturas/niveles, redirigiendo a crear nueva asignatura/nivel");
+            System.out.println("Aún no existen asignaturas/niveles, redirigiendo a crear nueva asignatura/nivel");
             CrearNuevaAsignatura(userList);            
-            }                                                                             // Validacion de los grupos
-        if (listaGrupos.getSize()==0) {
-            System.out.println("Aun no existen Grupos, redirigiendo a crear nuevo Grupo");
-            CrearNuevoGrupo(userList);            
-            }    
-
-        else{
-        impAsig();
-        System.out.println("Ingrese el nombre de la asignatura/nivel a la que desea agregar el grupo:");
-        String nombreAsignatura = entrada.nextLine();
-                                                                        // Buscar la asignatura por su nombre en la lista de asignaturas
-        Materia asignatura = listaMaterias.buscarAsignatura(nombreAsignatura);
-        if (asignatura != null) {
-            impGrupo();
-            System.out.println("Ingrese el nombre del grupo que desea agregar a la asignatura/nivel:");
-            String nombreGrupo = entrada.nextLine();
-
-                                                                            // Buscar el grupo por su nombre en la lista de grupos
-            Grupo grupo = listaGrupos.buscarGrupo(nombreGrupo);
-            if (grupo != null) {
-                                                                             // Agregar el grupo a la asignatura
-                asignatura.addGrupo(grupo);
-                System.out.println("Grupo agregado a la asignatura/nivel correctamente.");
-            } else {
-                System.out.println("El grupo especificado no existe.");
-            }
-        } else {
-            System.out.println("La asignatura/nivel especificada no existe.");
         }
-        VerMenuAsignatura(userList);
+        if (listaGrupos.getSize() == 0) {
+            System.out.println("Aún no existen Grupos, redirigiendo a crear nuevo Grupo");
+            CrearNuevoGrupo(userList);            
+        } else {
+            // Imprimir opciones de asignaturas/niveles
+            impAsig();
+            System.out.println("Ingrese el número de la asignatura/nivel a la que desea agregar el grupo:");
+            int indiceAsignatura = validarEnteros(entrada);
+            indiceAsignatura--;
+            // Verificar si el índice de la asignatura es válido
+            if (indiceAsignatura >= 0 && indiceAsignatura < listaMaterias.getSize()) {
+                // Imprimir opciones de grupos
+                impGrupo();
+                System.out.println("Ingrese el número del grupo que desea agregar a la asignatura/nivel:");
+                int indiceGrupo = validarEnteros(entrada);
+                indiceGrupo--;
+    
+                // Verificar si el índice del grupo es válido
+                if (indiceGrupo >= 0 && indiceGrupo < listaGrupos.getSize()) {
+                    // Obtener la asignatura y el grupo correspondientes a los índices
+                    Materia asignatura = listaMaterias.getListaAsignaturas().get(indiceAsignatura);
+                    Grupo grupo = listaGrupos.getListaGrupos().get(indiceGrupo);
+    
+                    // Agregar el grupo a la asignatura
+                    asignatura.addGrupo(grupo);
+                    System.out.println("Grupo agregado a la asignatura/nivel correctamente.");
+                } else {
+                    System.out.println("El número de grupo especificado no es válido.");
+                }
+            } else {
+                System.out.println("El número de asignatura/nivel especificado no es válido.");
+            }
+            VerMenuAsignatura(userList);
         }
     }
+    
 
     public static void EliminarGrupoenAsignatura(ListaUsuarios userList) {
         Scanner entrada = new Scanner(System.in);        
@@ -877,9 +900,9 @@ public class Main {
                 System.out.println("Entrada inválida. Por favor, ingrese un número entero.");
                 scanner.next(); // Limpiar el buffer del scanner y se evita el crash 
             }
-            /*Este es un ejemplo por que se pueden poner mas de un catch para un try,
+                    /*Este es un ejemplo por que se pueden poner mas de un catch para un try,
              he visto de hasta 3 no se si se puedan mas, este catch de ejemplo no afecta si lo borras*/
-            catch ( Exception e) /* recibe el "error 2" */ { // "exception e" evita cualquier tipo de error
+            catch (Exception e) /* recibe el "error 2" */ { // "exception e" evita cualquier tipo de error
             System.out.println("Ejemplo de un exception esto detecta cualquier tipo de exception");
             scanner.next(); // Limpiar el buffer del scanner y se evita el crash
             } 
