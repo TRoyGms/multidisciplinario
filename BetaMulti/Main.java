@@ -76,74 +76,14 @@ public class Main {
             switch(option){
                 case 1: recibirActividad();
                 break;
-                case 2: 
+                case 2: verAprobados();
                 break;
                 default: System.out.println("Opcion invalida");
             }
 
         }while (option <0 || option >1);
-        /*
-       if (listaMaterias.getSize()==0 || listaGrupos.getSize()==0 || listaActividades.getSize()==0 || listaAlumnos.getSize()==0) {
-            System.out.println("Datos insuficientes");
-            choose_user(userList);            
-            }else{
-            int option;
-            int asig, grupo, alumno;
-                System.out.println("Bienvenida Profesora Berenice");
-                impAsig();
-            do {
-                System.out.println("Seleccione el numero de Grado con el que va a trabajar");
-                option = validarEnteros(entrada);
-                asig = option - 1;         //poner un if para entrar a la funcion
-                if (asig >= 0 && asig < listaMaterias.getSize()){
-                   for (int g=0; g < listaMaterias.getListaAsignaturas().get(asig).getListaActividades().size(); g++){
-                    System.out.println((g+1) + ". " + listaMaterias.getListaAsignaturas().get(asig).getListaGrupos().get(g).getNombre());
-                   } 
-                   System.out.println("Seleccione el numero del Grupo con el que va a trabajar");
-                   option = validarEnteros(entrada);
-                   grupo = option - 1;
-                    if (grupo >= 0 && grupo < listaMaterias.getListaAsignaturas().get(asig).getListaGrupos().get(grupo).getAlumnos().size()) {
-                        for(int al=0; al < listaMaterias.getListaAsignaturas().get(asig).getListaGrupos().get(grupo).getAlumnos().size(); al++){
-                        System.out.println("("+ (al+1) + ")" + "Numero de lista: " + listaMaterias.getListaAsignaturas().get(asig).getListaGrupos().get(grupo).getAlumnos().get(al).getnumLista()+". "+listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(al).getNombre()+" "+listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(al).getApellidos());
-                        }
-                    }   // Insertar else                   
-                    
-                    System.out.println("Seleccione el numero del alumno (El numero entre parentesis) para recibir alguna actividad");
-                    int lista = validarEnteros(entrada);
-                    lista--;
-                    if (lista >= 0 && lista < listaMaterias.getListaAsignaturas().get(asig).getListaGrupos().get(grupo).getAlumnos().size()){
-                        for(int act=0; act<listaMaterias.getListaAsignaturas().get(asig).getListaGrupos().get(grupo).getActividadenG().size(); act++){
-                            System.out.println((act+1)+". "+listaMaterias.getListaAsignaturas().get(asig).getListaGrupos().get(grupo).getActividadenG().get(act).getNombreAct());
-                        }
-                        int actividad = validarEnteros(entrada);
-                        actividad--;
-                        if (actividad >= 0 && actividad < listaMaterias.getListaAsignaturas().get(asig).getListaGrupos().get(grupo).getActividadenG().size()){
-                            listaMaterias.getListaAsignaturas().get(asig).getListaGrupos().get(grupo).getAlumnos().get(lista).setActividad(listaMaterias.getListaAsignaturas().get(asig).getListaGrupos().get(grupo).getActividadenG().get(actividad));
-                        }
-                    for(int j=0;j<listaGrupos.getListaGrupos().get(grupo).getSizeG();j++){
-                        if(lista==(listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(j).getnumLista())){
-                            alumno = j;
-                            System.out.println("Seleccione la actividad a recibir");
-                            for(int k=0;k<listaGrupos.getListaGrupos().get(grupo).getActSize();k++){
-                                System.out.println((k+1)+". "+listaGrupos.getListaGrupos().get(grupo).getActividadenG().get(k).getNombreAct());
-                                int indx = validarEnteros(entrada);
-                                int tarea = indx-1;
-                                recibirTarea(grupo, alumno, tarea);
-                            }
-                        }
-                    }
-                }
-                else {
-                    System.out.println("Seleccione una opcion valida");
-                    }
-                }
-            } while (option < 1 || option > listaGrupos.getSize());     //
-        }*/
     }
-            //Rehacer el metodo recibirTarea
-    public static void recibirTarea(int grupo, int alumno, int tarea){
-        listaGrupos.getListaGrupos().get(grupo).getAlumnos().get(alumno).setActividad(listaGrupos.getListaGrupos().get(grupo).getActividadenG().get(tarea));
-    }
+
     public static void VerAdminMenu(ListaUsuarios userList){
         Scanner entrada = new Scanner(System.in);
         int option;
@@ -877,11 +817,6 @@ public class Main {
         }
     }
 
-
-
-
-
-
     public static void recibirActividad(){
         Scanner entrada = new Scanner(System.in);
         impAsig();
@@ -916,21 +851,43 @@ public class Main {
                                     if(actividad >= 0 && actividad < listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().size()){
                                         listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().get(alumno).setActividad(listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().get(actividad));
                                         System.out.println("Actividad recibida: "+listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().get(actividad).getNombreAct());
-
                                     }
-
                                 }while(actividad<0 || actividad >= listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().size());
                             }
                         }while(alumno <0 && alumno >= listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().size());
                     }
                 }while(grupo<0 || grupo > listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().size());             
             }
-
         }while(option <0 || option >= listaMaterias.getListaAsignaturas().size());////////////////
-        
-
     }
 
+    public static void verAprobados(){
+            Scanner entrada = new Scanner(System.in);
+            impAsig();
+            System.out.println("Seleccione una materia");
+            int option=validarEnteros(entrada);
+            int asignatura = option-1;
+            do{
+                if (asignatura >= 0 && asignatura < listaMaterias.getListaAsignaturas().size()) {
+                    for(int grupo = 0; grupo < listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().size();asignatura++){
+                        System.out.println((grupo+1)+". "+listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getNombre());
+                    }   
+
+                    System.out.println("Seleccione un grupo dentro de "+listaMaterias.getListaAsignaturas().get(asignatura).getNombreAsignatura()+" para ver alumnos competentes");
+                    int grupo = validarEnteros(entrada);
+                    grupo--;
+                    do{
+                        for(int a=0; a< listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().size();a++){
+                            if(listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().size() == listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().get(a).getActividad().size()){
+                                System.out.println("Número de lista del alumno: "+listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().get(a).getnumLista()+", Nombre del alumno: "+listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().get(a).getNombre()+" "+listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().get(a).getApellidos());
+                            }
+                        }
+                    }while(grupo <0 || grupo >= listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().size());       
+                }else {
+                    System.out.println("Opcion invalida");
+                }
+            }while(option <0 || option >= listaMaterias.getListaAsignaturas().size());////////////////
+        }
 
     public static void impAsig(){
         System.out.println("Asignaturas/niveles existentes: ");
@@ -979,42 +936,3 @@ public class Main {
         return input; // Una vez pasa las prubas de los exceptions retorna la variable auxiliar sin cambios
     }
 }
-
-    /*public static boolean buscarAsignatura(String nombreMateria, ListaAsignaturas listaAsignaturas){
-        boolean flag=false;
-        for(int i=0; i<listaAsignaturas.getSize();i++){
-            if ( nombreMateria.equals(listaAsignaturas.getListaAsignaturas().get(0).getNombreAsignatura())){
-                flag = true;
-            }
-        }
-        return flag;
-    }
-    public static boolean buscarAlumno(ListaAlumnos listaAlumnos, String nombreAlumno){
-        boolean flag=false;
-        for(int i=0; i<listaAlumnos.getSize();i++){
-            if ( nombreAlumno.equals(listaAlumnos.getListaAlumnos().get(0).getNombre())){
-                flag = true;
-            }
-        }
-        return flag;
-    }
-    public static boolean buscarActividad(ListaActividades listaActividades, String nombreActividad){
-        boolean flag=false;
-        for(int i=0; i<listaActividades.getSize();i++){
-            if ( nombreActividad.equals(listaActividades.getListaActividades().get(0).getNombreAct())){
-                flag = true;
-            }
-        }
-        return flag;
-        
-        public static boolean buscarGrupo(int index){
-            boolean flag=false;
-            for(int i=0; i<listaGrupos.getSize();i++){
-                if ( listaGrupos.getListaGrupos().get(index).getNombre()){
-                    flag = true;
-                }
-            }
-            return flag;
-        
-        }
-    }*/
