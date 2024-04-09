@@ -119,7 +119,7 @@ public class Main {
         Scanner entrada = new Scanner(System.in);
         int option;
         do{
-            System.out.println("Seleccione una opcion, ya sea para Crear, Editar o Eliminar\n1.Asignautra \n2.Grupos\n3.Alumnos\n4.Actividades.\n0.Cambiar de Usuario");
+            System.out.println("Seleccione una opcion, ya sea para Crear, Editar o Eliminar\n1.Asignatura \n2.Grupos\n3.Alumnos\n4.Actividades.\n0.Cambiar de Usuario");
             option = validarEnteros(entrada);
             switch(option){
                 case 1: VerMenuAsignatura(userList);
