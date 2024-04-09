@@ -27,6 +27,7 @@ public class Materia {
         // Verificar si el grupo ya está presente en la asignatura
         if (!grupos.contains(grupo)) {
             this.grupos.add(grupo);
+            System.out.println("Grupo agregado a la asignatura correctamente.");
         } else {
             System.out.println("El grupo ya está en la asignatura.");
         }
@@ -38,11 +39,16 @@ public class Materia {
                 return grupo;
             }
         }
+        System.out.println("El grupo especificado no existe.");
         return null;
     }
 
     public void removeGrupo(Grupo grupo) {
         this.grupos.remove(grupo);
+    }
+
+    public void removeGrupoAt(int i) {
+        this.grupos.remove(i);
     }
 
     public void addActividad(Actividad actividad) {
