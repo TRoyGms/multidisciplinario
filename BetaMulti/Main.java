@@ -287,12 +287,11 @@ public class Main {
     public static void EditarAlumno(ListaUsuarios userList){
         Scanner entrada = new Scanner(System.in);
         int materia;
-        int alum;
+        int alum = -1; // Se inicializa alum con un valor que no es válido, para que no marque el error en el do-while
         boolean found = false;
         impAsig();
         System.out.println("Seleccione el numero de la materia");
         materia = validarEnteros(entrada);
-        
         materia--;
         if(listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().size()==0){
             System.out.println("Esta materia aun no cuenta con grupos donde crear alumnos.\nRedirigiendo a menú de grupos.");
@@ -305,7 +304,6 @@ public class Main {
                     System.out.println(listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(i).getNombre());                
                     }
                     do {
-                        
                         System.out.println("Seleccione el grupo donde se encuentra el alumno a editar");
                         String grupo= entrada.nextLine();
                         for(int g=0; g < listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().size();g++){
@@ -317,7 +315,6 @@ public class Main {
                                     for(int alumno=0;alumno < listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(g).getAlumnos().size();alumno++){
                                         System.out.println((alumno+1)+". "+listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(g).getAlumnos().get(alumno).getNombre()+" "+listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(g).getAlumnos().get(alumno).getApellidos());
                                         alum = validarEnteros(entrada);
-                                        alum--;
                                         if(alum >=0 && alum < listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(g).getAlumnos().size()){
                                             System.out.println("Ingrese nuevo nombre(s)");
                                             String nuevoNombre=entrada.nextLine();
@@ -325,15 +322,12 @@ public class Main {
                                             String nuevosApellidos=entrada.nextLine();
                                             listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(g).getAlumnos().get(alum).setNombre(nuevoNombre);
                                             listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(g).getAlumnos().get(alum).setApellidos(nuevosApellidos);
-
-                                        }else{
-                                            System.out.println("Numero invalido");
                                         }
-                                            
-                                        } 
+                                        else{
+                                            System.out.println("Numero invalido");
+                                        }    
+                                    } 
                                 }while(alum < 0 || alum >= listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(g).getAlumnos().size() );
-
-    
                             }
                         }
                     } while (found == false);   
