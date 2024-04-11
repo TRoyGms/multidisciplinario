@@ -11,6 +11,7 @@ public class Main {
     public static void main(String[] args) {   
         crearObjetos();
     }
+
     public static void crearObjetos() {
         Maestro Maestra = new Maestro("Maestra Berenice");
         Admin Administradora = new Admin("Perfil Administración");
@@ -35,6 +36,7 @@ public class Main {
         
         choose_user(userList);
     }
+    
     public static void choose_user(ListaUsuarios userList) {
         Scanner entrada = new Scanner(System.in);
         int option;
