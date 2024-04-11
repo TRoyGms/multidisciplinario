@@ -2,9 +2,9 @@ public abstract class Usuario {
     protected String u_name;
     protected String password;
 
-    public Usuario(String u_name, String password) {
+    public Usuario(String u_name) {
         this.u_name = u_name;
-        this.password = password;
+        this.password = generatePassword();
     }
 
     public String getU_name() {
@@ -15,7 +15,11 @@ public abstract class Usuario {
         this.u_name = u_name;
     }
 
-    protected abstract String getPassword();
+    protected abstract String generatePassword();
+
+    public String getPassword() {
+        return password;
+    }
 
     public void setPassword(String password) {
         this.password = password;

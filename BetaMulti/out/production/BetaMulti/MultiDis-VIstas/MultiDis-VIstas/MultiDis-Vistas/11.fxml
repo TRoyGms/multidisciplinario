@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: linear-gradient(from 0% 0% to 90% 90%, #8c52ff, #ff914d);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="72.0" layoutY="57.0" prefHeight="687.0" prefWidth="1150.0" style="-fx-background-color: radial-gradient(center 50% 50%, radius 50%, #cdffd8, #94b9ff);">
+         <children>
+            <Button id="BotonAdmin" layoutX="410.0" layoutY="48.0" mnemonicParsing="false" prefHeight="123.0" prefWidth="404.0" style="-fx-background-color: #004add; -fx-background-radius: 20;" text="ELIMINAR ALUMNO" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Rectangle id="CuadroTexto01" arcHeight="100.0" arcWidth="100.0" fill="#feffc7" height="66.0" layoutX="495.0" layoutY="565.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" style="-fx-background-radius: 20;" width="235.0" />
+            <Text layoutX="500.0" layoutY="610.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="CONFIRMAR" textAlignment="CENTER" wrappingWidth="225.933349609375">
+               <font>
+                  <Font size="33.0" />
+               </font>
+            </Text>
+            <CheckBox layoutX="196.0" layoutY="241.0" mnemonicParsing="false" text="Iván Gabriel Torres" />
+            <CheckBox layoutX="196.0" layoutY="280.0" mnemonicParsing="false" text="Valentina García Ruíz" />
+            <CheckBox layoutX="196.0" layoutY="457.0" mnemonicParsing="false" text="Alejandro Zíñiga" />
+            <CheckBox layoutX="196.0" layoutY="421.0" mnemonicParsing="false" text="Belén Castro Silva" />
+            <CheckBox layoutX="196.0" layoutY="379.0" mnemonicParsing="false" text="Oscar Flores Silva" />
+            <CheckBox layoutX="194.0" layoutY="329.0" mnemonicParsing="false" text="Laura Díaz Martínez" />
+            <CheckBox layoutX="564.0" layoutY="244.0" mnemonicParsing="false" text="Francisco Barajas" />
+            <CheckBox layoutX="564.0" layoutY="281.0" mnemonicParsing="false" text="Raúl González" />
+            <CheckBox layoutX="860.0" layoutY="235.0" mnemonicParsing="false" text="Andrés ramos" />
+            <CheckBox layoutX="861.0" layoutY="280.0" mnemonicParsing="false" text="Diana López" />
+            <CheckBox layoutX="860.0" layoutY="451.0" mnemonicParsing="false" text="Sergei Camacho" />
+            <CheckBox layoutX="860.0" layoutY="415.0" mnemonicParsing="false" text="Esteban Soto" />
+            <CheckBox layoutX="860.0" layoutY="373.0" mnemonicParsing="false" text="Miguel Ballinas Prieto" />
+            <CheckBox layoutX="861.0" layoutY="328.0" mnemonicParsing="false" text="Yolanda Torres López" />
+            <CheckBox layoutX="564.0" layoutY="374.0" mnemonicParsing="false" text="Flor Martínez Pérez" />
+            <CheckBox layoutX="564.0" layoutY="329.0" mnemonicParsing="false" text="Brenda Hérnandez Núñez" />
+            <CheckBox layoutX="564.0" layoutY="449.0" mnemonicParsing="false" text="Oscar Flores Aguilar" />
+            <CheckBox layoutX="564.0" layoutY="404.0" mnemonicParsing="false" text="Julia Castro García" />
+            <Circle fill="#004aad" layoutX="1017.0" layoutY="90.0" radius="42.0" stroke="BLACK" strokeType="INSIDE" />
+            <Text fill="WHITE" layoutX="996.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1A">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: linear-gradient(from 0% 0% to 90% 90%, #8c52ff, #ff914d);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffc9ea" height="711.0" layoutX="39.0" layoutY="33.0" stroke="BLACK" strokeType="INSIDE" width="1209.0" />
+      <Rectangle arcHeight="100.0" arcWidth="100.0" fill="#004aad" height="98.0" layoutX="485.0" layoutY="186.0" stroke="BLACK" strokeType="INSIDE" width="299.0" />
+      <Rectangle arcHeight="100.0" arcWidth="100.0" fill="#feffc7" height="73.0" layoutX="75.0" layoutY="58.0" stroke="BLACK" strokeType="INSIDE" style="border-radius: 100%;" styleClass="border-radius" width="134.0" />
+      <Text layoutX="91.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="REGRESAR">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="450.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2E" textAlignment="CENTER" wrappingWidth="386.501953125">
+         <font>
+            <Font size="64.0" />
+         </font>
+      </Text>
+      <Rectangle arcHeight="100.0" arcWidth="50.0" fill="WHITE" height="120.0" layoutX="381.0" layoutY="304.0" stroke="BLACK" strokeType="INSIDE" width="514.0" />
+      <ImageView fitHeight="116.0" fitWidth="89.0" layoutX="396.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@icono%20actividad.PNG" />
+         </image>
+      </ImageView>
+      <Text layoutX="514.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ENSAYO &quot;TÍTULO&quot;" wrappingWidth="330.24609375">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <CheckBox layoutX="217.0" layoutY="472.0" mnemonicParsing="false" text="Iván Gabriel Torres" />
+      <CheckBox layoutX="217.0" layoutY="511.0" mnemonicParsing="false" text="Valentina García Ruíz" />
+      <CheckBox layoutX="217.0" layoutY="688.0" mnemonicParsing="false" text="Alejandro Zíñiga" />
+      <CheckBox layoutX="217.0" layoutY="652.0" mnemonicParsing="false" text="Belén Castro Silva" />
+      <CheckBox layoutX="217.0" layoutY="610.0" mnemonicParsing="false" text="Oscar Flores Silva" />
+      <CheckBox layoutX="215.0" layoutY="560.0" mnemonicParsing="false" text="Laura Díaz Martínez" />
+      <CheckBox layoutX="585.0" layoutY="475.0" mnemonicParsing="false" text="Francisco Barajas" />
+      <CheckBox layoutX="585.0" layoutY="512.0" mnemonicParsing="false" text="Raúl González" />
+      <CheckBox layoutX="881.0" layoutY="466.0" mnemonicParsing="false" text="Andrés ramos" />
+      <CheckBox layoutX="882.0" layoutY="511.0" mnemonicParsing="false" text="Diana López" />
+      <CheckBox layoutX="881.0" layoutY="682.0" mnemonicParsing="false" text="Sergei Camacho" />
+      <CheckBox layoutX="881.0" layoutY="646.0" mnemonicParsing="false" text="Esteban Soto" />
+      <CheckBox layoutX="881.0" layoutY="604.0" mnemonicParsing="false" text="Miguel Ballinas Prieto" />
+      <CheckBox layoutX="882.0" layoutY="559.0" mnemonicParsing="false" text="Yolanda Torres López" />
+      <CheckBox layoutX="585.0" layoutY="605.0" mnemonicParsing="false" text="Flor Martínez Pérez" />
+      <CheckBox layoutX="585.0" layoutY="560.0" mnemonicParsing="false" text="Brenda Hérnandez Núñez" />
+      <CheckBox layoutX="585.0" layoutY="680.0" mnemonicParsing="false" text="Oscar Flores Aguilar" />
+      <CheckBox layoutX="585.0" layoutY="635.0" mnemonicParsing="false" text="Julia Castro García" />
+      <Rectangle arcHeight="100.0" arcWidth="100.0" fill="#feffc7" height="73.0" layoutX="1026.0" layoutY="654.0" stroke="BLACK" strokeType="INSIDE" style="border-radius: 100%;" styleClass="border-radius" width="134.0" />
+      <Text layoutX="1042.0" layoutY="699.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RECIBIR">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
