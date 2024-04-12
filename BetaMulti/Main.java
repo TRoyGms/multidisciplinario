@@ -852,9 +852,11 @@ public class Main {
                                     }else{
                                         System.out.println("Opcion invalida");
                                     }
-                                    System.out.println("Recibir otra tarea \n1. Si\n2. No");
+                                    System.out.println("Recibir otra tarea \n1. Si\nOtro numero: No");
                                     continuar = validarEnteros(entrada);
-                                    
+                                    if(continuar !=1){
+                                        VerTeacherMenu(userList);
+                                    }
                                     } while (continuar==1);
                                 }while(actividad<0 || actividad >= listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().size());
                             }else{
