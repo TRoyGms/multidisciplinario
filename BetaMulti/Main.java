@@ -1,7 +1,5 @@
 import java.util.Scanner;
-
-import javax.swing.text.StyledEditorKit.ForegroundAction;
-
+//import javax.swing.text.StyledEditorKit.ForegroundAction;
 import java.util.InputMismatchException;
 //import java.util.concurrent.LinkedBlockingDeque;      // No tengo idea de donde salio eso...
 @SuppressWarnings("resource")  // Quita las alertas de cierre de scanner       :O!
@@ -16,7 +14,7 @@ public class Main {
     }
 
     public static void crearObjetos() {
-        Maestro Maestra = new Maestro("Maestra Berenice");
+        Maestro Maestra = new Maestro("Berenice");
         Admin Administradora = new Admin("Perfil Administración");
 
         ListaUsuarios userList = new ListaUsuarios();
