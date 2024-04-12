@@ -714,12 +714,12 @@ public class Main {
         int cancelar;
         if(opcion==1){ 
             do {
-                System.out.println("Seleccione el semestre al que pertenece el grupo (ingrese un numero el 1 al 6)");
+                System.out.println("Seleccione el semestre al que pertenece el grupo (1 al 6)");
                 semestre = validarEnteros(entrada);
                 semestre--;
                 if(semestre >=0 && semestre <6){
                     for(int i = 0; i < listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().size(); i++){
-                        System.out.println((i+1)+listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(i).getNombre());
+                        System.out.println((i+1)+". "+listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(i).getNombre());
                     }
                     do {
                         System.out.println("Seleccione el numero del grupo del que desea eliminar TODOS los alumnos");
@@ -730,7 +730,10 @@ public class Main {
                             System.out.println("1. Si\nOtro numero: Cancelar");
                             cancelar = validarEnteros(entrada);
                             if (cancelar == 1) {
-                                for(int j = 0; j < listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getAlumnos().size(); j++){
+                                int laps = listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getAlumnos().size();
+                                for(int j = 0; j < laps ; j++){
+                                    System.out.println("ALUMNOS.SIZE= "+listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getAlumnos().size());
+                                    System.out.println("vuelta de eliminación: "+j);
                                     listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).removeAlumno(listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getAlumnos().get(j));
                                 }
                             }else{
