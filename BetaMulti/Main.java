@@ -324,13 +324,13 @@ public class Main {
             option = validarEnteros(entrada);
             switch (option) {
                 case 1:
-                    CrearAlumno(userList);    // YA QUEDO
+                    CrearAlumno(userList);   
                     break;
                 case 2:
-                    EditarAlumno(userList);   // YA QUEDO
+                    EditarAlumno(userList);  
                     break;
                 case 3:
-                    EliminarAlumno(userList);   // YA QUEDO
+                    EliminarAlumno(userList);   
                     break;
                 case 0:
                     VerAdminMenu(userList);
@@ -361,8 +361,10 @@ public class Main {
                         grupo--;
                         if(grupo >= 0 && grupo < 10){                       
                             Alumno alumno = new Alumno();
+                            entrada.nextLine();
                             System.out.println("Ingrese Nombre(s) del alumno: ");
                             String nombre = entrada.nextLine();
+                            //entrada.nextLine();
                             System.out.println("Ingrese apellidos de " + nombre);
                             String apellidos = entrada.nextLine();
                             alumno.setNombre(nombre);
@@ -385,52 +387,55 @@ public class Main {
     public static void EditarAlumno(ListaUsuarios userList){
         Scanner entrada = new Scanner(System.in);
         int semestre;
-        int alum = -1; // Se inicializa alum con un valor que no es válido, para que no marque el error en el do-while
-        boolean found = false;
+        int grupo;
+        int alumno;
         impAsig();
         do {           
-                System.out.println("Seleccione el semestre (con numero) de Orientación Educativa");
-                semestre = validarEnteros(entrada);
-                semestre--;
-                if(semestre >= 0 && semestre < listaMaterias.getSize()){
-                    System.out.println("Grupos existentes dentro de "+listaMaterias.getListaAsignaturas().get(semestre).getNombreAsignatura()+": ");
-                    for(int i=0; i< listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().size();i++){
-                    System.out.println((i+1)+". "+listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(i).getNombre());                
-                    }
-                    do {
-                        System.out.println("Seleccione el grupo donde se encuentra el alumno a editar");
-                        String grupo= entrada.nextLine();
-                        for(int g=0; g < listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().size();g++){
-                            if(grupo.equals(listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(g).getNombre())){
-                                System.out.println("Alumnos existentes en "+listaMaterias.getListaAsignaturas().get(semestre).getNombreAsignatura()+" "+listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(g).getNombre());
-                                do {
-                                found = true;
-                                    System.out.println("Seleccione el numero del alumno a editar en "+listaMaterias.getListaAsignaturas().get(semestre).getNombreAsignatura()+" "+listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(g).getNombre());
-                                    for(int alumno=0;alumno < listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(g).getAlumnos().size();alumno++){
-                                        System.out.println((alumno+1)+". "+listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(g).getAlumnos().get(alumno).getNombre()+" "+listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(g).getAlumnos().get(alumno).getApellidos());
-                                        alum = validarEnteros(entrada);
-                                        if(alum >=0 && alum < listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(g).getAlumnos().size()){
-                                            System.out.println("Ingrese nuevo nombre(s)");
-                                            String nuevoNombre=entrada.nextLine();
-                                            System.out.println("Ingrese nuevos apellidos");
-                                            String nuevosApellidos=entrada.nextLine();
-                                            listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(g).getAlumnos().get(alum).setNombre(nuevoNombre);
-                                            listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(g).getAlumnos().get(alum).setApellidos(nuevosApellidos);
-                                        }
-                                        else{
-                                            System.out.println("Numero invalido");
-                                        }    
-                                    } 
-                                }while(alum < 0 || alum >= listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(g).getAlumnos().size() );
-                            }
-                        }
-                    } while (found == false);   
-                }else{
-                    System.out.println("El semestre no puede ser menor a 1 ni mayor a 6");
+            System.out.println("Seleccione el semestre (1 al 6) de Orientación Educativa");
+            semestre = validarEnteros(entrada);
+            semestre--;
+            if(semestre >= 0 && semestre < listaMaterias.getSize()){
+                System.out.println("Grupos existentes dentro de "+listaMaterias.getListaAsignaturas().get(semestre).getNombreAsignatura()+": ");
+                for(int i=0; i< 10 ;i++){
+                System.out.println((i+1)+". "+listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(i).getNombre());                
                 }
-            }while(semestre <0 || semestre >= listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().size());
+                do {   
+                    
+                    System.out.println("Seleccione el numero de grupo donde se encuentra el alumno a editar");
+                    grupo= validarEnteros(entrada);
+                    grupo--;
+                    if(grupo >=0 && grupo < listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().size()) {
+                        System.out.println("Alumnos existentes en "+listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getNombre());
+                        for(int j=0; j<listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getAlumnos().size();j++){
+                            System.out.println((j+1)+". "+listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getAlumnos().get(j).getNombre()+" "+listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getAlumnos().get(j).getApellidos());
+                        }
+                        do {
+                            System.out.println("Seleccione el numero del alumno a editar");
+                            alumno = validarEnteros(entrada);
+                            alumno--;
+                            if(alumno >= 0 && alumno < listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getAlumnos().size()){
+                                entrada.nextLine();
+                                System.out.println("Ingrese nuevo nombre(s)");
+                                String nuevoNombre=entrada.nextLine();
+                                System.out.println("nuevo nombre: "+nuevoNombre);
+                                System.out.println("Ingrese nuevos apellidos");
+                                String nuevosApellidos=entrada.nextLine();
+                                listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getAlumnos().get(alumno).setNombre(nuevoNombre);
+                                listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getAlumnos().get(alumno).setApellidos(nuevosApellidos);
+                                VerMenuAlumnos(userList);
+                            }
+                        } while (alumno <0 || alumno >= listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getAlumnos().size());                        
+                    }else{
+                        System.out.println("Rango de grupo invalido");
+                    }
+                        
+                } while (grupo >0 || grupo >= listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().size());  ////aqui acaba 
+            }else{
+                System.out.println("El semestre no puede ser menor a 1 ni mayor a 6");
+            }
+        }while(semestre <0 || semestre >= listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().size());
+        VerMenuAlumnos(userList);
     }
-    
     
     public static void VerAlumnosEnGrupo(ListaUsuarios userList){
         Scanner entrada = new Scanner(System.in);
@@ -479,40 +484,54 @@ public class Main {
 
     public static void EliminarAlumno(ListaUsuarios userList){
         Scanner entrada = new Scanner(System.in);
-        //String name;
         int materia;
-        boolean found = false;
-        //int opcion;
+        int grupo;
+        int alumno;
+        int eliminar;
+
         impAsig();
-        System.out.println("Seleccione el semestre (numero)");
-        materia = validarEnteros(entrada);
-        materia--;
         
-            if(materia >=0 && materia < listaMaterias.getListaAsignaturas().size())
-            System.out.println("Seleccione el grupo donde se encuentra el alumno a editar");
-            for(int i =0; i< listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().size();i++){
-                System.out.println(listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(i).getNombre());
-                String grupo=entrada.nextLine();
-                do {
-                    for(int j =0; j< listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().size();j++){
-                        if(grupo.equals(listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(j).getNombre())){
-                            found = true;
-                            
-                            System.out.println("Seleccione el numero del alumno que desea eliminar");
-                            for(int k=0; k < listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(j).getAlumnos().size();k++){
-                                System.out.println((k+1)+listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(j).getAlumnos().get(k).getNombre()+" "+listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(j).getAlumnos().get(k).getApellidos());
+        do{
+            System.out.println("Seleccione el semestre (numero)");
+            materia = validarEnteros(entrada);
+            materia--;
+            if(materia >=0 && materia < 6){
+                for(int i =0; i< listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().size();i++){
+                    System.out.println((i+1)+". "+listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(i).getNombre());
+                    do {
+                        System.out.println("Seleccione el grupo donde se encuentra el alumno a editar");
+                        grupo=validarEnteros(entrada);
+                        grupo--;
+                        if (grupo >=0 && grupo <10) {
+                            if (listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(grupo).getAlumnos().size()==0) {
+                                System.out.println("Este grupo no contiene alumnos.\nRedirigiendo al menu de Alumnos");
+                                VerMenuAlumnos(userList);                                                                 
                             }
-                            int alumno=validarEnteros(entrada);
-                            alumno--;
-                            System.out.println("Realmente desea eliminar a "+listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(j).getAlumnos().get(alumno).getNombre()+" "+listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(j).getAlumnos().get(alumno).getApellidos()+"\n1. Si\n0. Otro numero: No");
-                            int respuesta=validarEnteros(entrada);
-                            if(respuesta == 1){
-                                listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(j).getAlumnos().remove(alumno);   
+                            System.out.println("Alumnos dentro de "+listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(grupo).getNombre());
+                            for(int k=0; k < listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(grupo).getAlumnos().size();k++){
+                                System.out.println((k+1)+". "+listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(grupo).getAlumnos().get(k).getNombre()+" "+listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(grupo).getAlumnos().get(k).getApellidos());
                             }
+                            do {
+                                System.out.println("Seleccione el numero del alumno que desea eliminar");
+                                alumno=validarEnteros(entrada);
+                                alumno--;
+                                if(alumno >=0 && alumno < listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(grupo).getAlumnos().size()){
+                                    System.out.println("Realmente desea eliminar a "+listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(grupo).getAlumnos().get(alumno).getNombre()+" "+listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(grupo).getAlumnos().get(alumno).getApellidos()+"\n1. Si\n0. Otro numero: CANCELAR");
+                                    eliminar = validarEnteros(entrada);
+                                    if (eliminar==1) {
+                                        listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(grupo).getAlumnos().remove(alumno);    
+                                        VerMenuAlumnos(userList);   
+                                    }else{
+                                        System.out.println("Cancelando...");
+                                        VerMenuAlumnos(userList);
+                                    }
+                                }
+                            } while (alumno <0 || alumno >= listaMaterias.getListaAsignaturas().get(materia).getListaGrupos().get(grupo).getAlumnos().size());
                         }
-                    }   
-                } while (found == false);
+                    } while (grupo<0 || grupo >= 10);
+                }
             }
+        }while(materia <0 || materia >= 10);   
         VerMenuAlumnos(userList);      
     }
     public static void VerMenuActividades(ListaUsuarios userList){      //OPCION 4      <<<<<     ACTIVIDADES

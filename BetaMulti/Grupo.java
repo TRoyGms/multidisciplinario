@@ -58,8 +58,7 @@ public class Grupo {
         this.nombre = nombre;
     }
 
-    public void 
-    addAlumno(Alumno alumno) {
+    public void addAlumno(Alumno alumno) {
         if (alumnos == null) {
             alumnos = new ArrayList<>();
         }
