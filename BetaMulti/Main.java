@@ -703,7 +703,6 @@ public class Main {
         VerMenuAsignatura(userList);
     }
 
-
     public static void VaciarGrupo(ListaUsuarios userList){
         Scanner entrada = new Scanner(System.in);
 
@@ -730,11 +729,9 @@ public class Main {
                             System.out.println("1. Si\nOtro numero: Cancelar");
                             cancelar = validarEnteros(entrada);
                             if (cancelar == 1) {
-                                int laps = listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getAlumnos().size();
-                                for(int j = 0; j < laps ; j++){
-                                    System.out.println("ALUMNOS.SIZE= "+listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getAlumnos().size());
-                                    System.out.println("vuelta de eliminación: "+j);
-                                    listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).removeAlumno(listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getAlumnos().get(j));
+                               
+                                while(listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getAlumnos().size() !=0){
+                                    listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).removeAlumno(listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getAlumnos().get(0));
                                 }
                             }else{
                                 VerMenuGrupos(userList);
