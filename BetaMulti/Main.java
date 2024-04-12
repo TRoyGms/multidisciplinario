@@ -223,12 +223,14 @@ public class Main {
             choose_user(userList);           
         }else{
             do{
-                System.out.println("Seleccione una opcion\n1. Recibir tarea\n2. Ver alumnos con todas las tareas entregadas");
+                System.out.println("Seleccione una opcion\n1. Recibir tarea\n2. Ver alumnos con todas las tareas entregadas\n3. Salir del programa");
                 option = validarEnteros(entrada);
                 switch(option){
                     case 1: recibirActividad(userList);
                     break;
                     case 2: verAprobados(userList);
+                    break;
+                    case 3: System.out.println("Adios.");
                     break;
                     default: System.out.println("Opcion invalida");
                 }
@@ -779,7 +781,7 @@ public class Main {
             }VerMenuGrupos(userList);
         }
     }
-    public static void EliminarAlumnodelGrupo(ListaUsuarios userList){                                          //////////////////////////////          REGRESAR A INDICES
+    public static void EliminarAlumnodelGrupo(ListaUsuarios userList){                     
         Scanner entrada = new Scanner(System.in);
             if (listaAlumnos.getSize() == 0) {
                 System.out.println("Aun no existen Alumnos, redirigiendo a crear nuevo alumno");
@@ -810,6 +812,8 @@ public class Main {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static void recibirActividad(ListaUsuarios userList){
         Scanner entrada = new Scanner(System.in);
+        int continuar;
+        int actividad;
         impAsig();
         System.out.println("Seleccione una materia");
         int asignatura =validarEnteros(entrada);
@@ -832,19 +836,25 @@ public class Main {
                         alumno--;
                         do{
                             if(alumno >= 0 && alumno < listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().size()){
-                                for(int actividad=0; actividad<listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().size();actividad++){
-                                    System.out.println((actividad+1)+". "+listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().get(actividad).getNombreAct());
+                                for(int act=0; act<listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().size();act++){
+                                    System.out.println((act+1)+". "+listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().get(act).getNombreAct());
                                 }
-                                System.out.println("Seleccione el numero de actividad a recibir");
-                                int actividad = validarEnteros(entrada);
-                                actividad--;
-                                do{
+                                do {
+                                    System.out.println("Seleccione el numero de actividad a recibir");
+                                    actividad = validarEnteros(entrada);
+                                    actividad--;
                                     if(actividad >= 0 && actividad < listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().size()){
                                         listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().get(alumno).setActividad(listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().get(actividad));
                                         System.out.println("Actividad recibida: "+listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().get(actividad).getNombreAct());
+                                        VerTeacherMenu(userList);
                                     }else{
                                         System.out.println("Opcion invalida");
                                     }
+                                    System.out.println("Recibir otra tarea \n1. Si\n2. No");
+                                    continuar = validarEnteros(entrada);
+                                    
+                                } while (continuar==1);
+                                do{
                                 }while(actividad<0 || actividad >= listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().size());
                             }else{
                                 System.out.println("Opcion invalida");                                }
@@ -857,34 +867,38 @@ public class Main {
             }else{
                 System.out.println("Opcion invalida");
             }
-        }while(asignatura <0 || asignatura >= 6);        
+        }while(asignatura <0 || asignatura >= 6);   
+        VerTeacherMenu(userList);     
     }
 
     public static void verAprobados(ListaUsuarios userList){
             Scanner entrada = new Scanner(System.in);
             impAsig();
             System.out.println("Seleccione una materia");
-            int option=validarEnteros(entrada);
-            int asignatura = option-1;
+            int semestre=validarEnteros(entrada);
+            semestre--;
             do{
-                if (asignatura >= 0 && asignatura < listaMaterias.getListaAsignaturas().size()) {
-                    for(int grupo = 0; grupo < listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().size();asignatura++){
-                        System.out.println((grupo+1)+". "+listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getNombre());
+                if (semestre >= 0 && semestre < listaMaterias.getListaAsignaturas().size()) {
+                    for(int grupo = 0; grupo < listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().size();grupo++){
+                        System.out.println((grupo+1)+". "+listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getNombre());
                     }   
-                    System.out.println("Seleccione un grupo dentro de "+listaMaterias.getListaAsignaturas().get(asignatura).getNombreAsignatura()+" para ver alumnos competentes");
+                    System.out.println("Seleccione un grupo dentro de "+listaMaterias.getListaAsignaturas().get(semestre).getNombreAsignatura()+" para ver alumnos competentes");
                     int grupo = validarEnteros(entrada);
                     grupo--;
                     do{
-                        for(int a=0; a< listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().size();a++){
-                            if(listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().size() == listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().get(a).getsizeAct()){
-                                System.out.println("Número de lista del alumno: "+listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().get(a).getnumLista()+", Nombre del alumno: "+listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().get(a).getNombre()+" "+listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().get(a).getApellidos());
+                        for(int a=0; a< listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getAlumnos().size();a++){
+                            if(listaMaterias.getListaAsignaturas().get(semestre).getListaActividades().size() == listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getAlumnos().get(a).getsizeAct()){
+                                System.out.println("Nombre del alumno: "+listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getAlumnos().get(a).getNombre()+" "+listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(grupo).getAlumnos().get(a).getApellidos());
+                                
+                                VerTeacherMenu(userList);
                             }
                         }
-                    }while(grupo <0 || grupo >= listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().size());       
+                    }while(grupo <0 || grupo >= listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().size());       
                 }else {
                     System.out.println("Opcion invalida");
                 }
-            }while(option <0 || option >= listaMaterias.getListaAsignaturas().size());
+            }while(semestre <0 || semestre >= listaMaterias.getListaAsignaturas().size());
+            VerTeacherMenu(userList);
         }
 
     public static void impAsig(){
