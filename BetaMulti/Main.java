@@ -840,6 +840,8 @@ public class Main {
                                     System.out.println((act+1)+". "+listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().get(act).getNombreAct());
                                 }
                                 do {
+                                    do{
+                                    
                                     System.out.println("Seleccione el numero de actividad a recibir");
                                     actividad = validarEnteros(entrada);
                                     actividad--;
@@ -853,8 +855,7 @@ public class Main {
                                     System.out.println("Recibir otra tarea \n1. Si\n2. No");
                                     continuar = validarEnteros(entrada);
                                     
-                                } while (continuar==1);
-                                do{
+                                    } while (continuar==1);
                                 }while(actividad<0 || actividad >= listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().size());
                             }else{
                                 System.out.println("Opcion invalida");                                }
