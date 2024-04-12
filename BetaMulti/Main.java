@@ -12,7 +12,6 @@ public class Main {
     public static void main(String[] args) {   
         crearObjetos();
     }
-
     public static void crearObjetos() {
         Maestro Maestra = new Maestro("Berenice");
         Admin Administradora = new Admin("Perfil Administración");
@@ -166,10 +165,9 @@ public class Main {
         listaMaterias.getListaAsignaturas().get(5).addGrupo(Sexto_H);
         listaMaterias.getListaAsignaturas().get(5).addGrupo(Sexto_I);
         listaMaterias.getListaAsignaturas().get(5).addGrupo(Sexto_J);
-        
+    
         choose_user(userList);
     }
-    
     public static void choose_user(ListaUsuarios userList) {
         Scanner entrada = new Scanner(System.in);
         int option;
@@ -235,7 +233,6 @@ public class Main {
             }while (option <0 || option >1);
         }
     }
-    
     public static void VerAdminMenu(ListaUsuarios userList){
         Scanner entrada = new Scanner(System.in);
         int option;
@@ -258,7 +255,6 @@ public class Main {
             }
         } while (option < 0 || option > 4);
     }
-
     public static void VerMenuAsignatura(ListaUsuarios userList){           
         Scanner entrada = new Scanner(System.in);
         int option;
@@ -400,7 +396,6 @@ public class Main {
                 System.out.println((i+1)+". "+listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().get(i).getNombre());                
                 }
                 do {   
-                    
                     System.out.println("Seleccione el numero de grupo donde se encuentra el alumno a editar");
                     grupo= validarEnteros(entrada);
                     grupo--;
@@ -436,7 +431,6 @@ public class Main {
         }while(semestre <0 || semestre >= listaMaterias.getListaAsignaturas().get(semestre).getListaGrupos().size());
         VerMenuAlumnos(userList);
     }
-    
     public static void VerAlumnosEnGrupo(ListaUsuarios userList){
         Scanner entrada = new Scanner(System.in);
         int grupo;
@@ -480,17 +474,13 @@ public class Main {
         } while (semestre < 0 || semestre >6);
         VerMenuGrupos(userList);
     }
-
-
     public static void EliminarAlumno(ListaUsuarios userList){
         Scanner entrada = new Scanner(System.in);
         int materia;
         int grupo;
         int alumno;
         int eliminar;
-
         impAsig();
-        
         do{
             System.out.println("Seleccione el semestre (numero)");
             materia = validarEnteros(entrada);
@@ -628,7 +618,6 @@ public class Main {
             VerMenuActividades(userList);
         }
     }
-
     public static void AgregarActividadenAsignatura(ListaUsuarios userList) {
         Scanner entrada = new Scanner(System.in);
         int semestre;
@@ -702,7 +691,6 @@ public class Main {
         } while (semestre <0 || semestre >=6); 
         VerMenuAsignatura(userList);
     }
-
     public static void VaciarGrupo(ListaUsuarios userList){
         Scanner entrada = new Scanner(System.in);
 
@@ -745,69 +733,6 @@ public class Main {
         }      
         VerMenuGrupos(userList);        
     }
-
-    public static void AgregarAlumnoaGrupo(ListaUsuarios userList){
-        Scanner entrada = new Scanner(System.in);
-         // Validacion de los grupos
-          
-         // Validacion de los grupos
-        if (listaAlumnos.getSize() == 0) {
-            System.out.println("Aun no existen Alumnos, redirigiendo a crear nuevo alumno");
-            CrearAlumno(userList);            
-        } 
-        else{
-            impGrupo();
-            System.out.println("Ingrese el nombre del grupo al que desea agregar el alumno:");
-            String nombreGrupo = entrada.nextLine();
-            // Buscar el grupo por su nombre en la lista de grupos
-            Grupo grupo = listaGrupos.buscarGrupo(nombreGrupo);
-            if (grupo != null) {
-                impAlumno();
-                System.out.println("Ingrese el nombre del alumno que desea agregar al grupo:");
-                String nombreAlumno = entrada.nextLine();
-                // Buscar el alumno por su nombre en la lista de alumnos
-                Alumno alumno = listaAlumnos.buscarAlumno(nombreAlumno);
-                if (alumno != null) {
-                    // Agregar el alumno al grupo
-                    grupo.addAlumno(alumno);
-                    System.out.println("Alumno agregado al grupo correctamente.");
-                }else{
-                    System.out.println("El alumno especificado no existe.");
-                }
-            }else{
-                System.out.println("El grupo especificado no existe.");
-            }VerMenuGrupos(userList);
-        }
-    }
-    public static void EliminarAlumnodelGrupo(ListaUsuarios userList){                     
-        Scanner entrada = new Scanner(System.in);
-            if (listaAlumnos.getSize() == 0) {
-                System.out.println("Aun no existen Alumnos, redirigiendo a crear nuevo alumno");
-            CrearAlumno(userList);            
-            }else{
-        System.out.println("Ingrese el nombre del grupo del que desea eliminar el alumno:");
-        String nombreGrupo = entrada.nextLine();
-        // Buscar el grupo por su nombre en la lista de grupos
-        Grupo grupo = listaGrupos.buscarGrupo(nombreGrupo);
-        if (grupo != null) {
-            System.out.println("Ingrese el nombre del alumno que desea eliminar del grupo:");
-            String nombreAlumno = entrada.nextLine();
-            // Buscar el alumno por su nombre en el grupo
-            Alumno alumno = grupo.buscarAlumno(nombreAlumno);
-            if (alumno != null) {
-                // Eliminar el alumno del grupo
-                grupo.removeAlumno(alumno);
-                System.out.println("Alumno eliminado del grupo correctamente.");
-            } else {
-                System.out.println("El alumno especificado no pertenece al grupo.");
-            }
-        } else {
-            System.out.println("El grupo especificado no existe.");
-        }
-        VerMenuGrupos(userList);
-        }
-    }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static void recibirActividad(ListaUsuarios userList){
         Scanner entrada = new Scanner(System.in);
         int continuar;
@@ -936,10 +861,6 @@ public class Main {
                 System.out.println("Entrada inválida. Por favor, ingrese un número entero.");
                 scanner.next(); 
             }
-            catch (Exception e)  {
-            System.out.println("Ejemplo de un exception esto detecta cualquier tipo de exception");
-            scanner.next();
-            } 
         }
         return input; 
     }
