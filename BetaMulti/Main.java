@@ -259,7 +259,7 @@ public class Main {
         } while (option < 0 || option > 4);
     }
 
-    public static void VerMenuAsignatura(ListaUsuarios userList){           //opcion 1         <<<< ASIGNATURA
+    public static void VerMenuAsignatura(ListaUsuarios userList){           
         Scanner entrada = new Scanner(System.in);
         int option;
         do {
@@ -271,10 +271,10 @@ public class Main {
             option = validarEnteros(entrada);
             switch (option) {
                 case 1:
-                    AgregarActividadenAsignatura(userList);          //Funcional "IMPORTANTE:Pendiente 2da revision"
+                    AgregarActividadenAsignatura(userList);        
                     break;
                 case 2:
-                    EliminarActividadenAsignatura(userList);         //Funcional "IMPORTANTE:Pendiente 2da revision"
+                    EliminarActividadenAsignatura(userList);         
                     break;
                 case 0:
                     VerAdminMenu(userList);
