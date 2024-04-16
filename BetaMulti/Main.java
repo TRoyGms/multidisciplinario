@@ -780,15 +780,20 @@ public class Main {
                                         actividad = validarEnteros(entrada);
                                         actividad--;
                                         if(actividad >= 0 && actividad < listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().size()){
-                                            if(listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().get(alumno).getActividad().contains(listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().get(actividad))){
-                                                System.out.println("El alumno ya entrego la actividad '"+listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().get(actividad).getNombreAct()+"' anteriormente");
-                                            }else{
-                                                listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().get(alumno).setActividad(listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().get(actividad));
-                                                System.out.println("Actividad recibida: "+listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().get(actividad).getNombreAct());
-                                                VerTeacherMenu(userList);
+
+//busqueda secuencial por nombre
+                                            for(int i=0; i<listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().get(alumno).getActividad().size();i++){
+                                                if(listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().get(actividad).getNombreAct().equals(listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().get(alumno).getActividad().get(i).getNombreAct())){
+                                                    System.out.println("El alumno ya ha entregado esta actividad anteriormente");
+                                                    VerTeacherMenu(userList);
+                                                }else{
+                                                    listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().get(alumno).setActividad(listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().get(actividad));
+                                                    System.out.println("Actividad recibida: "+listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().get(actividad).getNombreAct());
+                                                    VerTeacherMenu(userList);
+                                                }
                                             }
                                         }else{
-                                            System.out.println("Opcion invalida");
+                                            System.out.println("Opcion de actividad invalida");
                                         }
                                         System.out.println("Recibir otra tarea \n1. Si\nOtro numero: No");
                                         continuar = validarEnteros(entrada);
