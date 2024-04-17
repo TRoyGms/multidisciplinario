@@ -218,18 +218,18 @@ public class Main {
             choose_user(userList);           
         }else{
             do{
-                System.out.println("Seleccione una opcion\n1. Recibir tarea\n2. Ver alumnos con todas las tareas entregadas\n3. Cancelar entrega\n4. Cambiar de usuario \n0. Salir del programa");
+                System.out.println("Seleccione una opcion\n1. Recibir tarea\n2. Ver alumnos con todas las tareas entregadas\n3. Cambiar de usuario \n0. Salir del programa");
                 option = validarEnteros(entrada);
                 switch(option){
                     case 1: recibirActividad(userList);
                     break;
                     case 2: verAprobados(userList);
                     break;
-                    case 3: cancelarEntrega(userList);
+                    /*case 3: System.out.println("En Mantenimiento...");
+                    break;*/
+                    case 3: loginAdmin(userList);
                     break;
-                    case 4: loginAdmin(userList);
-                    break;
-                    case 0: System.out.println("Adios.");
+                    case 0: System.out.println("Adios. :D");
                     break;
                     default: System.out.println("Opcion invalida");
                 }
@@ -677,7 +677,6 @@ public class Main {
             System.out.println("Ingrese el semestre del que desea eliminar la actividad:");
             semestre = validarEnteros(entrada);
             semestre--;
-            
             if(semestre >= 0 && semestre < 6 ){
                 if(listaMaterias.getListaAsignaturas().get(semestre).getListaActividades().size()==0){
                     System.out.println("Este semestre aun no cuenta con actividades asignadas\nRedirigiendo a menú de asignaturas");
@@ -698,13 +697,11 @@ public class Main {
                     }                    
                 } while (actividad < 0 || actividad >= listaMaterias.getListaAsignaturas().get(semestre).getListaActividades().size());
             }
-            
         } while (semestre <0 || semestre >=6); 
         VerMenuAsignatura(userList);
     }
     public static void VaciarGrupo(ListaUsuarios userList){
         Scanner entrada = new Scanner(System.in);
-
         System.out.println("**ALERTA** Esta acción eliminará todos los alumnos del grupo y es irreversible\n1.si\nOtro numero: Regresar al menú anterior");
         int opcion= validarEnteros(entrada);
         int semestre;
@@ -748,6 +745,7 @@ public class Main {
         Scanner entrada = new Scanner(System.in);
         int continuar;
         int actividad;
+        boolean found = false;
         impAsig();
         System.out.println("Seleccione una materia");
         int asignatura =validarEnteros(entrada);
@@ -775,22 +773,22 @@ public class Main {
                                 }
                                 do {
                                     do{
-                                    
                                         System.out.println("Seleccione el numero de actividad a recibir");
                                         actividad = validarEnteros(entrada);
                                         actividad--;
                                         if(actividad >= 0 && actividad < listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().size()){
-
-//busqueda secuencial por nombre
                                             for(int i=0; i<listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().get(alumno).getActividad().size();i++){
                                                 if(listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().get(actividad).getNombreAct().equals(listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().get(alumno).getActividad().get(i).getNombreAct())){
-                                                    System.out.println("El alumno ya ha entregado esta actividad anteriormente");
-                                                    VerTeacherMenu(userList);
-                                                }else{
-                                                    listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().get(alumno).setActividad(listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().get(actividad));
-                                                    System.out.println("Actividad recibida: "+listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().get(actividad).getNombreAct());
-                                                    VerTeacherMenu(userList);
+                                                    found = true;
                                                 }
+                                            }
+                                            if(found == true ){
+                                                System.out.println("El alumno ya ha entregado esta actividad anteriormente");
+                                                VerTeacherMenu(userList);
+                                            }else{
+                                                listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().get(grupo).getAlumnos().get(alumno).setActividad(listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().get(actividad));
+                                                System.out.println("Actividad recibida: "+listaMaterias.getListaAsignaturas().get(asignatura).getListaActividades().get(actividad).getNombreAct());
+                                                VerTeacherMenu(userList);
                                             }
                                         }else{
                                             System.out.println("Opcion de actividad invalida");
@@ -809,7 +807,6 @@ public class Main {
                         System.out.println("Opcion invalida"); 
                     }
                 }while(grupo<0 || grupo > listaMaterias.getListaAsignaturas().get(asignatura).getListaGrupos().size());             
-                
             }else{
                 System.out.println("Opcion invalida");
             }
@@ -847,7 +844,7 @@ public class Main {
         VerTeacherMenu(userList);
     }
 
-    public static void cancelarEntrega(ListaUsuarios userList) {
+    /*public static void cancelarEntrega(ListaUsuarios userList) {
         Scanner entrada = new Scanner(System.in);
         int continuar;
         do {
@@ -897,7 +894,7 @@ public class Main {
             continuar = validarEnteros(entrada);
         } while (continuar == 1);
         VerTeacherMenu(userList);
-    }
+    }*/
  
     public static void impAsig(){
         System.out.println("Asignaturas/niveles existentes: ");
